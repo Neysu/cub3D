@@ -6,7 +6,7 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/02 20:44:21 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/03 08:37:52 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,25 @@
 
 #define ERROR "Error"
 
-typedef struct s_data
+typedef struct	s_player
 {
-	void	*mlx;
-	void	*mlx_win;
-	char	**map;
-	int		*ceiling;
-	int		*floor;
-	char	*north;
-	char	*south;
-	char	*east;
-	char	*west;
+	int		posy;
+	int		posx;
+	char	orientation;
+}				t_player;
+
+typedef struct	s_data
+{
+	void		*mlx;
+	void		*mlx_win;
+	char		**map;
+	int			*ceiling;
+	int			*floor;
+	char		*north;
+	char		*south;
+	char		*east;
+	char		*west;
+	t_player	*player;
 }				t_data;
 
 size_t	findmaplen(char *map);

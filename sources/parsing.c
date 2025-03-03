@@ -6,11 +6,12 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/02 20:41:11 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/03 08:47:27 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include <X11/X.h>
 #include <unistd.h>
 
 int	charmap(char c)
@@ -56,6 +57,38 @@ void	findvar(char *line, t_data *args)
 		args->floor = loadrgb(line);
 }
 
+int	isplayer(char c)
+{
+	if (c == 'N' || c == 'W' || c == 'S' || c == 'E')
+		return (1);
+	return (0);
+}
+
+void	locateplayer(t_data *args)
+{
+	int		y;
+	int		x;
+	char	**map;
+
+	y = 0;
+	map = args->map;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (isplayer(map[y][x]))
+			{
+				args->player->posx = x;
+				args->player->posy = y;
+				args->player->orientation = map[y][x];
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 t_data	*open_map(char *file, t_data *args)
 {
 	char	*line;
@@ -76,5 +109,6 @@ t_data	*open_map(char *file, t_data *args)
 	}
 	free(line);
 	close(fd);
+	locateplayer(args);
 	return (args);
 }

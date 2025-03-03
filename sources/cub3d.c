@@ -6,7 +6,7 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/02 20:52:00 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/03 08:38:51 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (ft_putendl_fd(ERROR, 2), 1);
 	args = ft_calloc(sizeof(t_data), 1);
+	args->player = ft_calloc(sizeof(t_player), 1);
 	open_map(av[1], args);
 	args->mlx = mlx_init();
 	if (!args->mlx)
