@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 19:55:49 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/04 00:39:25 by egibeaux         ###   ########.fr       */
+/*   Created: 2025/03/03 23:04:35 by egibeaux          #+#    #+#             */
+/*   Updated: 2025/03/03 23:08:15 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_free(t_data *args)
+int		put_pixel(int **data, int x, int y, int color)
 {
-	ft_free_arr(args->map);
-	free(args->text->ceiling);
-	free(args->text->floor);
-	free(args->text->north);
-	free(args->text->south);
-	free(args->text->west);
-	free(args->text->east);
-	free(args->text);
-	free(args->img_data);
-	free(args);
+	data[y][x] = color;
+
+	return (0);
 }

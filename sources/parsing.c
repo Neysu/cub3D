@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/03 08:47:27 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/04 02:31:39 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include <X11/X.h>
 #include <unistd.h>
-
-int	charmap(char c)
-{
-	if (c == '1' || c == '0' || c == 'N' || c == 'W' || c == 'S' || c == 'E' || c == ' ')
-		return (1);
-	return (0);
-}
 
 char	**getmap(char *line, t_data *args, int fd)
 {
@@ -41,28 +34,22 @@ char	**getmap(char *line, t_data *args, int fd)
 	return (args->map);
 }
 
-void	findvar(char *line, t_data *args)
+void	findvar(char *line, t_text *text)
 {
 	if (ft_strnstr(line, "NO", ft_strlen(line)))
-		args->north = loadpath(line);
+		text->north = loadpath(line);
 	else if (ft_strnstr(line, "SO", ft_strlen(line)))
-		args->south = loadpath(line);
+		text->south = loadpath(line);
 	else if (ft_strnstr(line, "WE", ft_strlen(line)))
-		args->west = loadpath(line);
+		text->west = loadpath(line);
 	else if (ft_strnstr(line, "EA", ft_strlen(line)))
-		args->east = loadpath(line);
+		text->east = loadpath(line);
 	else if (ft_strchr(line, 'C'))
-		args->ceiling = loadrgb(line);
+		text->ceiling = loadrgb(line);
 	else if (ft_strchr(line, 'F'))
-		args->floor = loadrgb(line);
+		text->floor = loadrgb(line);
 }
 
-int	isplayer(char c)
-{
-	if (c == 'N' || c == 'W' || c == 'S' || c == 'E')
-		return (1);
-	return (0);
-}
 
 void	locateplayer(t_data *args)
 {
@@ -89,6 +76,32 @@ void	locateplayer(t_data *args)
 	}
 }
 
+void	setplayervar(t_data *args)
+{
+	if (args->player->orientation == 'N')
+	{
+		args->player->dirx = 0;
+		args->player->diry = 1;
+	}
+	if (args->player->orientation == 'S')
+	{
+		args->player->dirx = 0;
+		args->player->diry = -1;
+	}
+	if (args->player->orientation == 'E')
+	{
+		args->player->dirx = 1;
+		args->player->diry = 0;
+	}
+	if (args->player->orientation == 'W')
+	{
+		args->player->dirx = -1;
+		args->player->diry = 0;
+	}
+	args->player->planey = 0.66;
+	args->player->planex = 0;
+}
+
 t_data	*open_map(char *file, t_data *args)
 {
 	char	*line;
@@ -101,7 +114,7 @@ t_data	*open_map(char *file, t_data *args)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		findvar(line, args);
+		findvar(line, args->text);
 		if (findedges(line))
 			args->map = getmap(line, args, fd);
 		free(line);

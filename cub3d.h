@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/03 08:37:52 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/04 02:29:02 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,46 @@
 
 #define ERROR "Error"
 
+#define SCREEN_HEIGHT 1024
+#define SCREEN_WIDHT 1280
+
 typedef struct	s_player
 {
-	int		posy;
-	int		posx;
-	char	orientation;
+	double		posy;
+	double		posx;
+	double		dirx;
+	double		diry;
+	double		planex;
+	double		planey;
+	char		orientation;
 }				t_player;
 
-typedef struct	s_data
+typedef struct s_text
 {
-	void		*mlx;
-	void		*mlx_win;
-	char		**map;
 	int			*ceiling;
 	int			*floor;
 	char		*north;
 	char		*south;
 	char		*east;
 	char		*west;
+}				t_text;
+
+typedef struct	s_img
+{
+	void	*img;
+	int		*address;
+	int		endian;
+	int		size_line;
+	int		bpp;
+}				t_img;
+
+typedef struct	s_data
+{
+	void		*mlx;
+	void		*mlx_win;
+	char		**map;
+	t_img		*img_data;
+	t_text		*text;
 	t_player	*player;
 }				t_data;
 
@@ -63,6 +85,7 @@ int		*loadrgb(char *line);
 
 int		charmap(char c);
 int		ismap(char *line);
+int		isplayer(char c);
 int		findedges(char *line);
 
 char	*loadpath(char *line);

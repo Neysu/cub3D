@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 19:55:49 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/04 00:39:25 by egibeaux         ###   ########.fr       */
+/*   Created: 2025/03/04 02:21:43 by egibeaux          #+#    #+#             */
+/*   Updated: 2025/03/04 02:22:18 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_free(t_data *args)
+int	charmap(char c)
 {
-	ft_free_arr(args->map);
-	free(args->text->ceiling);
-	free(args->text->floor);
-	free(args->text->north);
-	free(args->text->south);
-	free(args->text->west);
-	free(args->text->east);
-	free(args->text);
-	free(args->img_data);
-	free(args);
+	if (c == '1' || c == '0' || c == 'N' || c == 'W' || c == 'S' || c == 'E' || c == ' ')
+		return (1);
+	return (0);
+}
+
+int	isplayer(char c)
+{
+	if (c == 'N' || c == 'W' || c == 'S' || c == 'E')
+		return (1);
+	return (0);
 }
