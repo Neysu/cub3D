@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 23:04:35 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/03/05 04:02:08 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:00:46 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,20 @@ void	drawline(int x, int start, int end, int color, t_data *args)
 {
 	int		i;
 
-	i = start;
+	i = 0;
+	while (i != start)
+	{
+		put_pixel(args->img_data, x, i, args->text->ceiling_color);
+		i++;
+	}
 	while (i != end)
 	{
 		put_pixel(args->img_data, x, i, color);
+		i++;
+	}
+	while (i != SCREEN_HEIGHT)
+	{
+		put_pixel(args->img_data, x, i, args->text->floor_color);
 		i++;
 	}
 }
@@ -58,7 +68,6 @@ void	domath(t_data *args, t_player *player_data)
 		player_data->camera_x = 2 * i / (double) SCREEN_WIDTH - 1;
 		player_data->raydir_x = player_data->dir_x + player_data->plane_x * player_data->camera_x;
 		player_data->raydir_y = player_data->dir_y + player_data->plane_y * player_data->camera_x;
-		printf("%f\n", player_data->dir_y);
 	
 		if (player_data->raydir_x == 0)
 			deltaDistX = 1e30;
@@ -110,9 +119,7 @@ void	domath(t_data *args, t_player *player_data)
 				side = 1;
 			}
 			if (args->map[map_y][map_x] == '1')
-			{
 				hit = 1;
-			}
 		}
 
 		// Calcul de la distance perpendiculaire

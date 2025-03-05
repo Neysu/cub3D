@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 03:54:08 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:10:44 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_data *loadvar(char **av)
 	args->mlx_win = mlx_new_window(args->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "CUB3D");
 	if (!args->mlx_win)
 		return (ft_putendl_fd(ERROR, 2), ft_free(args), NULL);
+	args->text->ceiling_color = getcolor(args->text->ceiling);
+	args->text->floor_color = getcolor(args->text->floor);
 	return (args);
 }
 
@@ -60,6 +62,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (ft_putendl_fd(ERROR, 2), 1);
 	args = loadvar(av);
+	
 	args->img_data->img = mlx_new_image(args->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	args->img_data->address = (int *) mlx_get_data_addr(args->img_data->img, &args->img_data->bpp, &args->img_data->size_line, &args->img_data->endian);
 	domath(args, args->player);

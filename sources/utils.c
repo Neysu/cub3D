@@ -6,12 +6,13 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:21:35 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/02 20:36:21 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/05 19:37:48 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include <fcntl.h>
+#include <stdio.h>
 
 int	ismap(char *line)
 {
@@ -101,4 +102,11 @@ int	*loadrgb(char *line)
 	}
 	ft_free_arr(tab);
 	return (rgb);
+}
+
+int	getcolor(int *rgb)
+{
+	if (!rgb)
+		return (0);
+	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }

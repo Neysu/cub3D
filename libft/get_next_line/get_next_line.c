@@ -6,76 +6,83 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:22:02 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/02/25 22:35:17 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:23:43 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include <stdio.h>
 
-static char	*read_line(int fd, char *line, char *buffer)
+void	free_null(char **ptr)
 {
-	ssize_t		bytes_read;
-	char		*temp;
-
-	while (1)
+	if (*ptr != NULL)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break ;
-		buffer[bytes_read] = '\0';
-		temp = ft_strjoin(line, buffer);
-		free(line);
-		if (!temp)
-			return (NULL);
-		line = temp;
-		if (ft_strchr(buffer, '\n'))
-			break ;
+		free(*ptr);
+		ptr = NULL;
 	}
-	if (bytes_read < 0 || (!bytes_read && !*line))
-	{
-		buffer[0] = '\0';
-		free(line);
-		return (NULL);
-	}
-	return (line);
 }
 
-static char	*trim_line(char *line, char *buffer)
+char	*join_line(int nl_position, char **buffer)
 {
-	size_t		i;
-	size_t		j;
-	char		*trimmed_line;
-	char		*newline_pos;
+	char	*res;
+	char	*tmp;
 
-	if (!line && *buffer)
-		line = ft_strndup(buffer, ft_strlen(buffer));
-	if (!line)
-		return (NULL);
-	newline_pos = ft_strchr(line, '\n');
-	if (!newline_pos)
+	tmp = NULL;
+	if (nl_position <= 0 )
 	{
-		buffer[0] = '\0';
-		return (line);
+		if (**buffer == '\0')
+		{
+			free(*buffer);
+			*buffer = NULL;
+			return (NULL);
+		}
+		res = *buffer;
+		*buffer = NULL;
+		return (res);
 	}
-	i = newline_pos - line + 1;
-	trimmed_line = ft_strndup(line, i);
-	j = 0;
-	while (line[i])
-		buffer[j++] = line[i++];
-	buffer[j] = '\0';
-	free(line);
-	return (trimmed_line);
+	tmp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
+	res = *buffer;
+	res[nl_position] = 0;
+	*buffer = tmp;
+	return (res);
+}
+
+char	*read_line(int fd, char **buffer, char *read_return)
+{
+	ssize_t	bytes_read;
+	char	*tmp;
+	char	*nl;
+
+	nl = ft_strchr(*buffer, '\n');
+	tmp = NULL;
+	bytes_read = 0;
+	while (nl == NULL)
+	{
+		bytes_read = read(fd, read_return, BUFFER_SIZE);
+		if (bytes_read <= 0)
+			return (join_line(bytes_read, buffer));
+		read_return[bytes_read] = 0;
+		tmp = ft_strjoin(*buffer, read_return);
+		free_null(buffer);
+		*buffer = tmp;
+		nl = ft_strchr(*buffer, '\n');
+	}
+	return (join_line(nl - *buffer + 1, buffer));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1] = {0};
-	char		*line;
+	static char	*buffer[MAX_FD + 1];
+	char		*read_return;
+	char		*res;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
 		return (NULL);
-	line = ft_strjoin("", buffer);
-	line = read_line(fd, line, buffer);
-	return (trim_line(line, buffer));
+	read_return = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (read_return == NULL)
+		return (NULL);
+	if (!buffer[fd])
+		buffer[fd] = ft_strdup("");
+	res = read_line(fd, &buffer[fd], read_return);
+	free_null(&read_return);
+	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 03:51:52 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:35:35 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 #define SCREEN_HEIGHT 600
 #define SCREEN_WIDTH 800
+#define FOV	0.66
 
 typedef struct	s_player
 {
@@ -61,6 +62,8 @@ typedef struct s_text
 {
 	int			*ceiling;
 	int			*floor;
+	int			ceiling_color;
+	int			floor_color;
 	char		*north;
 	char		*south;
 	char		*east;
@@ -97,8 +100,9 @@ void	drawline(int i, int start, int end, int color, t_data *args);
 int		*loadrgb(char *line);
 
 int		charmap(char c);
-int		ismap(char *line);
 int		isplayer(char c);
+int		ismap(char *line);
+int		getcolor(int *rgb);
 int		findedges(char *line);
 
 char	*loadpath(char *line);

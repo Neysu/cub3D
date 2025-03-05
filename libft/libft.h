@@ -6,7 +6,7 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:05:16 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/03/02 19:31:54 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/05 19:24:49 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE	1
+# endif
+
+# ifndef MAX_FD
+#  define MAX_FD 256
 # endif
 
 int		ft_tolower(int c);
