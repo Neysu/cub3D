@@ -6,7 +6,7 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 19:34:45 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/05 19:41:14 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	setplayervar(t_data *args)
 	}
 }
 
-t_data	*open_map(char *file, t_data *args)
+t_data	*get_var(char *file, t_data *args)
 {
 	char	*line;
 	int		fd;
@@ -122,8 +122,30 @@ t_data	*open_map(char *file, t_data *args)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		printf("%s", line);
 		findvar(line, args->text);
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+	locateplayer(args);
+	setplayervar(args);
+	return (args);
+}
+
+t_data	*get_map(char *file, t_data *args)
+{
+
+		char	*line;
+	int		fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
+	args->map = ft_calloc(sizeof(char *), findmaplen(file));
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
 		if (findedges(line))
 			args->map = getmap(line, args, fd);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 19:10:44 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/05 19:41:56 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ t_data *loadvar(char **av)
 	args->player = ft_calloc(sizeof(t_player), 1);
 	args->text = ft_calloc(sizeof(t_text), 1);
 	args->img_data = ft_calloc(sizeof(t_img), 1);
-	open_map(av[1], args);
+	get_var(av[1], args);
+	get_map(av[1], args);
 	args->mlx = mlx_init();
 	if (!args->mlx)
 		return (ft_putendl_fd(ERROR, 2), ft_free(args), NULL);

@@ -6,7 +6,7 @@
 /*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 18:35:35 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/05 19:41:36 by elliot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,5 @@ int		findedges(char *line);
 
 char	*loadpath(char *line);
 
-t_data	*open_map(char *map, t_data *args);
+t_data	*get_var(char *map, t_data *args);
+t_data	*get_map(char *file, t_data *args);
