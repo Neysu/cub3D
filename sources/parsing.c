@@ -6,7 +6,7 @@
 /*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/04 02:31:39 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:54:18 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ void	locateplayer(t_data *args)
 		{
 			if (isplayer(map[y][x]))
 			{
-				args->player->posx = x;
-				args->player->posy = y;
+				args->player->pos_x = (double) x;
+				args->player->pos_y = (double) y;
 				args->player->orientation = map[y][x];
+				return ;
 			}
 			x++;
 		}
@@ -80,26 +81,26 @@ void	setplayervar(t_data *args)
 {
 	if (args->player->orientation == 'N')
 	{
-		args->player->dirx = 0;
-		args->player->diry = 1;
+		args->player->dir_x = 0;
+		args->player->dir_y = 1;
 	}
 	if (args->player->orientation == 'S')
 	{
-		args->player->dirx = 0;
-		args->player->diry = -1;
+		args->player->dir_x = 0;
+		args->player->dir_y = -1;
 	}
 	if (args->player->orientation == 'E')
 	{
-		args->player->dirx = 1;
-		args->player->diry = 0;
+		args->player->dir_x = 1;
+		args->player->dir_y = 0;
 	}
 	if (args->player->orientation == 'W')
 	{
-		args->player->dirx = -1;
-		args->player->diry = 0;
+		args->player->dir_x = -1;
+		args->player->dir_y = 0;
 	}
-	args->player->planey = 0.66;
-	args->player->planex = 0;
+	args->player->plane_y = 0.66;
+	args->player->plane_x = 0;
 }
 
 t_data	*open_map(char *file, t_data *args)
@@ -123,5 +124,6 @@ t_data	*open_map(char *file, t_data *args)
 	free(line);
 	close(fd);
 	locateplayer(args);
+	setplayervar(args);
 	return (args);
 }

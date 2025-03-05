@@ -6,7 +6,7 @@
 /*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/04 02:29:02 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:51:52 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,26 @@
 
 #define ERROR "Error"
 
-#define SCREEN_HEIGHT 1024
-#define SCREEN_WIDHT 1280
+#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 800
 
 typedef struct	s_player
 {
-	double		posy;
-	double		posx;
-	double		dirx;
-	double		diry;
-	double		planex;
-	double		planey;
+	int			map_x;
+	int			map_y;
+	double		pos_y;
+	double		pos_x;
+	double		dir_x;
+	double		dir_y;
+	double		raydir_x;
+	double		raydir_y;
+	double		deltadist_x;
+	double		deltadist_y;
+	double		camera_x;
+	double		plane_x;
+	double		plane_y;
+	double		step_x;
+	double		step_y;
 	char		orientation;
 }				t_player;
 
@@ -79,7 +88,11 @@ typedef struct	s_data
 
 size_t	findmaplen(char *map);
 
+void	domath(t_data *args, t_player *player_data);
+
 void	ft_free(t_data *args);
+void	put_pixel(t_img *data, int x, int y, int color);
+void	drawline(int i, int start, int end, int color, t_data *args);
 
 int		*loadrgb(char *line);
 

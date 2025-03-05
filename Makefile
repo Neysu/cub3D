@@ -8,6 +8,8 @@ SRC = $(SRCDIR)/cub3d.c \
 		$(SRCDIR)/free.c \
 		$(SRCDIR)/parsing.c \
 		$(SRCDIR)/utils.c \
+		$(SRCDIR)/rendering.c \
+		$(SRCDIR)/check.c \
 
 OBJ := $(SRC:.c=.o)
 
