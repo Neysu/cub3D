@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 19:41:14 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/05 23:57:23 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void	findvar(char *line, t_text *text)
 	if (ft_strchr(line, 'C'))
 		text->ceiling = loadrgb(line);
 	if (ft_strchr(line, 'F'))
-	{
-		printf("daaaaaaa\n");
 		text->floor = loadrgb(line);
-	}
 }
 
 void	locateplayer(t_data *args)
@@ -87,13 +84,6 @@ void	setplayervar(t_data *args)
 		args->player->plane_y = 0;
 		args->player->plane_x = FOV * -1;
 	}
-	if (args->player->orientation == 'S')
-	{
-		args->player->dir_x = 0;
-		args->player->dir_y = 1;
-		args->player->plane_y = 0;
-		args->player->plane_x = FOV;
-	}
 	if (args->player->orientation == 'E')
 	{
 		args->player->dir_x = 1;
@@ -107,6 +97,13 @@ void	setplayervar(t_data *args)
 		args->player->dir_y = 0;
 		args->player->plane_y = FOV;
 		args->player->plane_x = 0;
+	}
+	if (args->player->orientation == 'S')
+	{
+		args->player->dir_x = 0;
+		args->player->dir_y = 1;
+		args->player->plane_y = 0;
+		args->player->plane_x = FOV;
 	}
 }
 

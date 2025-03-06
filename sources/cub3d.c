@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 19:41:56 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/06 01:51:44 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include <X11/X.h>
+#include <stdio.h>
 #include <string.h>
 
 int	close_window(void *data)
@@ -22,16 +23,64 @@ int	close_window(void *data)
 	ft_putendl_fd("Bye :)", 1);
 	mlx_destroy_window(args->mlx, args->mlx_win);
 	args->mlx_win = NULL;
+	mlx_destroy_image(args->mlx, args->img_data->img);
 	mlx_loop_end(args->mlx);
 	return (0);
 }
 
+void	turn(t_player *player_data, double rotSpeed)
+{
+	double oldDirX;
+	double oldPlaneX;
+
+	oldDirX = player_data->dir_x;
+	player_data->dir_x = player_data->dir_x * cos(rotSpeed) - player_data->dir_y * sin(rotSpeed);
+	player_data->dir_y = oldDirX * sin(rotSpeed) + player_data->dir_y * cos(rotSpeed);
+	oldPlaneX = player_data->plane_x;
+	player_data->plane_x = player_data->plane_x * cos(rotSpeed) - player_data->plane_y * sin(rotSpeed);
+	player_data->plane_y = oldPlaneX * sin(rotSpeed) + player_data->plane_y * cos(rotSpeed);
+}
+
+void	move(char **map, t_player *player_data, double movSpeed)
+{
+	int		y;
+	int		x;
+
+	y = (int) player_data->pos_y + player_data->dir_y * movSpeed + 1;
+	x = (int) player_data->pos_x + player_data->dir_x * movSpeed + 1;
+	printf("%c\n", map[y][x]);
+	if (map[y][x] == '1')
+		return ;
+	player_data->pos_x += player_data->dir_x * movSpeed;
+	player_data->pos_y += player_data->dir_y * movSpeed;
+}
+
+void	straf(char **map, t_player *player_data, double movSpeed)
+{
+	(void)map;
+	player_data->pos_x += player_data->dir_y * movSpeed;
+	player_data->pos_y -= player_data->dir_x * movSpeed;
+}
+
 int	handle_input(int keysym, t_data *args)
 {
+	mlx_clear_window(args->mlx, args->mlx_win);
 	if (keysym == KEY_ESC)
 		close_window(args);
 	if (keysym == KEY_W)
-		ft_printf("pressed W\n");
+		move(args->map, args->player, MOV_SPEED);
+	if (keysym == KEY_S)
+		move(args->map, args->player, (MOV_SPEED * -1));
+	if (keysym == KEY_D)
+		straf(args->map, args->player, MOV_SPEED);
+	if (keysym == KEY_A)
+		straf(args->map, args->player, (MOV_SPEED * -1));
+	if (keysym == KEY_RIGHT)
+		turn(args->player, (ROT_SPEED * -1));
+	if (keysym == KEY_LEFT)
+		turn(args->player, ROT_SPEED);
+	domath(args, args->player);
+	mlx_put_image_to_window(args->mlx, args->mlx_win, args->img_data->img, 0, 0);
 	return (0);
 }
 

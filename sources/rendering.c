@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 23:04:35 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/03/05 19:00:46 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/06 00:42:43 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	domath(t_data *args, t_player *player_data)
 	while (i < SCREEN_WIDTH)
 	{
 		color = 0xBFBFBF;
-		// Calcul de la direction du rayon
 		player_data->camera_x = 2 * i / (double) SCREEN_WIDTH - 1;
 		player_data->raydir_x = player_data->dir_x + player_data->plane_x * player_data->camera_x;
 		player_data->raydir_y = player_data->dir_y + player_data->plane_y * player_data->camera_x;
@@ -121,13 +120,10 @@ void	domath(t_data *args, t_player *player_data)
 			if (args->map[map_y][map_x] == '1')
 				hit = 1;
 		}
-
-		// Calcul de la distance perpendiculaire
 		if (side == 0)
 			perpWallDist = (sideDistX - deltaDistX);
 		else
 			perpWallDist = (sideDistY - deltaDistY);
-		// Calcul de la hauteur de la ligne
 		lineheight = (int)(SCREEN_HEIGHT / perpWallDist);
 		drawstart = (lineheight * -1) / 2 + SCREEN_HEIGHT / 2;
 		if (drawstart < 0)
@@ -135,12 +131,8 @@ void	domath(t_data *args, t_player *player_data)
 		drawend = lineheight / 2 + SCREEN_HEIGHT / 2;
 		if (drawend >= SCREEN_HEIGHT)
 			drawend = SCREEN_HEIGHT - 1;
-
-		// Ombre pour les murs sur l'axe Y
 		if (side == 1)
 			color /= 2;
-		
-		// Dessiner la ligne verticale
 		drawline(i, drawstart, drawend, color, args);
 		i++;
 	}

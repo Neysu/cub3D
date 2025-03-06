@@ -3,8 +3,8 @@ SO ./text/wallSouth.xpm
 WE ./text/wallWest.xpm
 EA ./text/wallEast.xpm
 
-F 220,100,0
-C 225,30,0
+F 130,32,74
+C 35,17,35
 
 
         1111111111111111111111111

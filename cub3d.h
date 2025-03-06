@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 19:41:36 by elliot           ###   ########.fr       */
+/*   Updated: 2025/03/06 00:43:15 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 #define SCREEN_HEIGHT 600
 #define SCREEN_WIDTH 800
 #define FOV	0.66
+#define ROT_SPEED 0.1
+#define MOV_SPEED 0.1
 
 typedef struct	s_player
 {
