@@ -6,7 +6,7 @@
 /*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/06 01:51:44 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/03/06 01:55:42 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	close_window(void *data)
 	args->mlx_win = NULL;
 	mlx_destroy_image(args->mlx, args->img_data->img);
 	mlx_loop_end(args->mlx);
-	return (0);
+	exit(0);
 }
 
 void	turn(t_player *player_data, double rotSpeed)
@@ -64,9 +64,9 @@ void	straf(char **map, t_player *player_data, double movSpeed)
 
 int	handle_input(int keysym, t_data *args)
 {
-	mlx_clear_window(args->mlx, args->mlx_win);
 	if (keysym == KEY_ESC)
 		close_window(args);
+	mlx_clear_window(args->mlx, args->mlx_win);
 	if (keysym == KEY_W)
 		move(args->map, args->player, MOV_SPEED);
 	if (keysym == KEY_S)
