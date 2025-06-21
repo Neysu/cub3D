@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 int	ismap(char *line)
 {

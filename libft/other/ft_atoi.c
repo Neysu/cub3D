@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include <bits/types/struct_itimerspec.h>
 
 int	ft_atoi(const char *str)
 {

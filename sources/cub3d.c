@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <X11/X.h>
-#include <stdio.h>
-#include <string.h>
 
 int	close_window(void *data)
 {
@@ -43,23 +40,30 @@ void	turn(t_player *player_data, double rotSpeed)
 
 void	move(char **map, t_player *player_data, double movSpeed)
 {
-	int		y;
-	int		x;
+    int y;
+    int x;
 
-	y = (int) player_data->pos_y + player_data->dir_y * movSpeed + 1;
-	x = (int) player_data->pos_x + player_data->dir_x * movSpeed + 1;
-	printf("%c\n", map[y][x]);
-	if (map[y][x] == '1')
-		return ;
-	player_data->pos_x += player_data->dir_x * movSpeed;
-	player_data->pos_y += player_data->dir_y * movSpeed;
+	x = (int) (player_data->pos_x + player_data->dir_x * movSpeed);
+	y = (int) (player_data->pos_y + player_data->dir_y * movSpeed);
+
+    if (map[(int)player_data->pos_y][x] != '1')  // Y is fixed, check X movement
+	     player_data->pos_x += player_data->dir_x * movSpeed;
+    if (map[y][(int)player_data->pos_x] != '1')  // X is fixed, check Y movement
+	     player_data->pos_y += player_data->dir_y * movSpeed;
 }
 
 void	straf(char **map, t_player *player_data, double movSpeed)
 {
-	(void)map;
-	player_data->pos_x += player_data->dir_y * movSpeed;
-	player_data->pos_y -= player_data->dir_x * movSpeed;
+	int x;
+	int y;
+
+	x = (int) (player_data->pos_x + player_data->dir_y * movSpeed);
+	y = (int) (player_data->pos_y - player_data->dir_x * movSpeed);
+
+    if (map[(int)player_data->pos_y][x] != '1')
+		player_data->pos_x += player_data->dir_y * movSpeed;
+    if (map[y][(int)player_data->pos_x] != '1')  // X is fixed, check Y movement
+		player_data->pos_y -= player_data->dir_x * movSpeed;
 }
 
 int	handle_input(int keysym, t_data *args)

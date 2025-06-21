@@ -18,7 +18,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <X11/keysym.h>
 #include <X11/X.h>
 
 #define KEY_ESC 65307

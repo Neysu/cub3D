@@ -132,8 +132,7 @@ t_data	*get_var(char *file, t_data *args)
 
 t_data	*get_map(char *file, t_data *args)
 {
-
-		char	*line;
+	char	*line;
 	int		fd;
 
 	fd = open(file, O_RDONLY);

@@ -103,7 +103,7 @@ void	domath(t_data *args, t_player *player_data)
 		
 		hit = 0;
 		
-		while (hit == 0)
+		while (args->map[map_y] && args->map[map_y][map_x] && hit == 0)
 		{
 			if (sideDistX < sideDistY)
 			{

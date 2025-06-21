@@ -1,27 +1,31 @@
 NAME = cub3d
-CFLAGS = -Wall -Wextra -Werror -g
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 LIB = libft/libft.a
 FT_PRINTF = ft_printf/ft_printf.a
 MINILIBX = minilibx/libmlx.a
+
 SRCDIR = sources
 SRC = $(SRCDIR)/cub3d.c \
-		$(SRCDIR)/free.c \
-		$(SRCDIR)/parsing.c \
-		$(SRCDIR)/utils.c \
-		$(SRCDIR)/rendering.c \
-		$(SRCDIR)/check.c \
+      $(SRCDIR)/free.c \
+      $(SRCDIR)/parsing.c \
+      $(SRCDIR)/utils.c \
+      $(SRCDIR)/rendering.c \
+      $(SRCDIR)/check.c
 
 OBJ := $(SRC:.c=.o)
 
-LIBS := -lX11 -lXext -lm -lz
+# Include and library paths for X11
+INCLUDES = -I/opt/X11/include
+LIBS := -L/opt/X11/lib -lX11 -lXext -lm -lz
 
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIB) $(MINILIBX) $(FT_PRINTF)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(FT_PRINTF) $(LIB) $(MINILIBX) $(LIBS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJ) $(FT_PRINTF) $(LIB) $(MINILIBX) $(LIBS)
 
 $(LIB):
 	$(MAKE) -C libft
