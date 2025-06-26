@@ -12,60 +12,6 @@
 
 #include "../cub3d.h"
 
-int	close_window(void *data)
-{
-	t_data	*args;
-
-	args = (t_data *)data;
-	ft_putendl_fd("Bye :)", 1);
-	mlx_destroy_window(args->mlx, args->mlx_win);
-	args->mlx_win = NULL;
-	mlx_destroy_image(args->mlx, args->img_data->img);
-	mlx_loop_end(args->mlx);
-	exit(0);
-}
-
-void	turn(t_player *player_data, double rotSpeed)
-{
-	double oldDirX;
-	double oldPlaneX;
-
-	oldDirX = player_data->dir_x;
-	player_data->dir_x = player_data->dir_x * cos(rotSpeed) - player_data->dir_y * sin(rotSpeed);
-	player_data->dir_y = oldDirX * sin(rotSpeed) + player_data->dir_y * cos(rotSpeed);
-	oldPlaneX = player_data->plane_x;
-	player_data->plane_x = player_data->plane_x * cos(rotSpeed) - player_data->plane_y * sin(rotSpeed);
-	player_data->plane_y = oldPlaneX * sin(rotSpeed) + player_data->plane_y * cos(rotSpeed);
-}
-
-void	move(char **map, t_player *player_data, double movSpeed)
-{
-    int y;
-    int x;
-
-	x = (int) (player_data->pos_x + player_data->dir_x * movSpeed);
-	y = (int) (player_data->pos_y + player_data->dir_y * movSpeed);
-
-    if (map[(int)player_data->pos_y][x] != '1')  // Y is fixed, check X movement
-	     player_data->pos_x += player_data->dir_x * movSpeed;
-    if (map[y][(int)player_data->pos_x] != '1')  // X is fixed, check Y movement
-	     player_data->pos_y += player_data->dir_y * movSpeed;
-}
-
-void	straf(char **map, t_player *player_data, double movSpeed)
-{
-	int x;
-	int y;
-
-	x = (int) (player_data->pos_x + player_data->dir_y * movSpeed);
-	y = (int) (player_data->pos_y - player_data->dir_x * movSpeed);
-
-    if (map[(int)player_data->pos_y][x] != '1')
-		player_data->pos_x += player_data->dir_y * movSpeed;
-    if (map[y][(int)player_data->pos_x] != '1')  // X is fixed, check Y movement
-		player_data->pos_y -= player_data->dir_x * movSpeed;
-}
-
 int	handle_input(int keysym, t_data *args)
 {
 	if (keysym == KEY_ESC)
@@ -88,14 +34,34 @@ int	handle_input(int keysym, t_data *args)
 	return (0);
 }
 
+void	loadtext(t_data *args)
+{
+	t_img	**temp;
+	int		i;
+
+	i = 0;
+	temp = args->wall_text;
+	while (temp[i])
+	{
+		temp[i]->img = opentext(args, temp[i]->path);
+		temp[i]->address = (int *) mlx_get_data_addr(temp[i]->img, &temp[i]->bpp, &temp[i]->size_line, &temp[i]->endian);
+		i++;
+	}
+}
+
 t_data *loadvar(char **av)
 {
 	t_data *args;
+	int		i = 0;
 
 	args = ft_calloc(sizeof(t_data), 1);
 	args->player = ft_calloc(sizeof(t_player), 1);
 	args->text = ft_calloc(sizeof(t_text), 1);
 	args->img_data = ft_calloc(sizeof(t_img), 1);
+	while (i < 4) {
+		args->wall_text[i] = ft_calloc(sizeof(t_img), 1);
+		i++;
+	}
 	get_var(av[1], args);
 	get_map(av[1], args);
 	args->mlx = mlx_init();
@@ -106,6 +72,7 @@ t_data *loadvar(char **av)
 		return (ft_putendl_fd(ERROR, 2), ft_free(args), NULL);
 	args->text->ceiling_color = getcolor(args->text->ceiling);
 	args->text->floor_color = getcolor(args->text->floor);
+	loadtext(args);
 	return (args);
 }
 
@@ -114,9 +81,11 @@ int	main(int ac, char **av)
 	t_data	*args;
 
 	if (ac != 2)
-		return (ft_putendl_fd(ERROR, 2), 1);
+		return (ft_putendl_fd(ERROR, STDERR_FILENO), 1);
+	if (!ft_strnext(av[1], ".cub", ft_strlen(av[1])))
+		return (ft_putendl_fd("Wrong file extension", STDERR_FILENO), 1);
+
 	args = loadvar(av);
-	
 	args->img_data->img = mlx_new_image(args->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	args->img_data->address = (int *) mlx_get_data_addr(args->img_data->img, &args->img_data->bpp, &args->img_data->size_line, &args->img_data->endian);
 	domath(args, args->player);

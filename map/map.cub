@@ -1,7 +1,7 @@
-NO ./text/wallNorth.xpm
-SO ./text/wallSouth.xpm
-WE ./text/wallWest.xpm
-EA ./text/wallEast.xpm
+NO textures/mossy.xpm
+SO textures/eagle.xpm
+WE textures/greystone.xpm
+EA textures/redbrick.xpm
 
 F 130,32,74
 C 35,17,35

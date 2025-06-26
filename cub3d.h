@@ -32,7 +32,10 @@
 #define KEY_LEFT 65361
 
 #define ERROR "Error"
-
+#define NORTH_WALL "textures/mossy.xpm"
+#define WEST_WALL "textures/bluestone.xpm"
+#define SOUTH_WALL "textures/redbrick.xpm"
+#define EAST_WALL "textures/mossy.xpm"
 #define SCREEN_HEIGHT 600
 #define SCREEN_WIDTH 800
 #define FOV	0.66
@@ -73,11 +76,12 @@ typedef struct s_text
 
 typedef struct	s_img
 {
-	void	*img;
-	int		*address;
-	int		endian;
-	int		size_line;
-	int		bpp;
+	void			*img;
+	char			*path;
+	int				*address;
+	int				endian;
+	int				size_line;
+	int				bpp;
 }				t_img;
 
 typedef struct	s_data
@@ -86,17 +90,22 @@ typedef struct	s_data
 	void		*mlx_win;
 	char		**map;
 	t_img		*img_data;
+	t_img		*wall_text[5];
 	t_text		*text;
 	t_player	*player;
 }				t_data;
 
 size_t	findmaplen(char *map);
 
-void	domath(t_data *args, t_player *player_data);
+void	*opentext(t_data *args, char *path);
 
 void	ft_free(t_data *args);
+void	domath(t_data *args, t_player *player_data);
+void	turn(t_player *player_data, double rotSpeed);
 void	put_pixel(t_img *data, int x, int y, int color);
-void	drawline(int i, int start, int end, int color, t_data *args);
+void	move(char **map, t_player *player_data, double movSpeed);
+void	straf(char **map, t_player *player_data, double movSpeed);
+void	drawline(int i, int start, int end, t_data *args);
 
 int		*loadrgb(char *line);
 
@@ -105,6 +114,7 @@ int		isplayer(char c);
 int		ismap(char *line);
 int		getcolor(int *rgb);
 int		findedges(char *line);
+int		close_window(void *data);
 
 char	*loadpath(char *line);
 

@@ -1,6 +1,6 @@
 NAME = cub3d
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -O3 -ffast-math #-fsanitize=address
 LIB = libft/libft.a
 FT_PRINTF = ft_printf/ft_printf.a
 MINILIBX = minilibx/libmlx.a
@@ -11,7 +11,9 @@ SRC = $(SRCDIR)/cub3d.c \
       $(SRCDIR)/parsing.c \
       $(SRCDIR)/utils.c \
       $(SRCDIR)/rendering.c \
-      $(SRCDIR)/check.c
+      $(SRCDIR)/check.c \
+	  $(SRCDIR)/utils2.c \
+	  $(SRCDIR)/movement.c
 
 OBJ := $(SRC:.c=.o)
 

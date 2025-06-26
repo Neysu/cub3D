@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <X11/X.h>
-#include <unistd.h>
 
 char	**getmap(char *line, t_data *args, int fd)
 {
@@ -33,19 +31,19 @@ char	**getmap(char *line, t_data *args, int fd)
 	return (args->map);
 }
 
-void	findvar(char *line, t_text *text)
+void	findvar(char *line, t_text *text, t_data *args)
 {
 	if (ft_strnstr(line, "NO", ft_strlen(line)))
-		text->north = loadpath(line);
-	if (ft_strnstr(line, "SO", ft_strlen(line)))
-		text->south = loadpath(line);
-	if (ft_strnstr(line, "WE", ft_strlen(line)))
-		text->west = loadpath(line);
-	if (ft_strnstr(line, "EA", ft_strlen(line)))
-		text->east = loadpath(line);
-	if (ft_strchr(line, 'C'))
+		args->wall_text[0]->path = loadpath(line);
+	else if (ft_strnstr(line, "SO", ft_strlen(line)))
+		args->wall_text[1]->path = loadpath(line);
+	else if (ft_strnstr(line, "WE", ft_strlen(line)))
+		args->wall_text[2]->path = loadpath(line);
+	else if (ft_strnstr(line, "EA", ft_strlen(line)))
+		args->wall_text[3]->path = loadpath(line);
+	else if (ft_strchr(line, 'C'))
 		text->ceiling = loadrgb(line);
-	if (ft_strchr(line, 'F'))
+	else if (ft_strchr(line, 'F'))
 		text->floor = loadrgb(line);
 }
 
@@ -119,7 +117,7 @@ t_data	*get_var(char *file, t_data *args)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		findvar(line, args->text);
+		findvar(line, args->text, args);
 		free(line);
 		line = get_next_line(fd);
 	}
