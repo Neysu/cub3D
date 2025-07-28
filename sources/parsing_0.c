@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_0.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 23:57:23 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/07/28 09:06:33 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,83 +71,4 @@ void	locateplayer(t_data *args)
 		}
 		y++;
 	}
-}
-
-void	setplayervar(t_data *args)
-{
-	if (args->player->orientation == 'N')
-	{
-		args->player->dir_x = 0;
-		args->player->dir_y = -1;
-		args->player->plane_y = 0;
-		args->player->plane_x = FOV * -1;
-	}
-	if (args->player->orientation == 'E')
-	{
-		args->player->dir_x = 1;
-		args->player->dir_y = 0;
-		args->player->plane_y = FOV * -1;
-		args->player->plane_x = 0;
-	}
-	if (args->player->orientation == 'W')
-	{
-		args->player->dir_x = -1;
-		args->player->dir_y = 0;
-		args->player->plane_y = FOV;
-		args->player->plane_x = 0;
-	}
-	if (args->player->orientation == 'S')
-	{
-		args->player->dir_x = 0;
-		args->player->dir_y = 1;
-		args->player->plane_y = 0;
-		args->player->plane_x = FOV;
-	}
-}
-
-t_data	*get_var(char *file, t_data *args)
-{
-	char	*line;
-	int		fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	args->map = ft_calloc(sizeof(char *), findmaplen(file));
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		findvar(line, args->text, args);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	locateplayer(args);
-	setplayervar(args);
-	return (args);
-}
-
-t_data	*get_map(char *file, t_data *args)
-{
-	char	*line;
-	int		fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	args->map = ft_calloc(sizeof(char *), findmaplen(file));
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		if (findedges(line))
-			args->map = getmap(line, args, fd);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	locateplayer(args);
-	setplayervar(args);
-	return (args);
 }

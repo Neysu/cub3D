@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:21:35 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 19:37:48 by elliot           ###   ########.fr       */
+/*   Updated: 2025/07/28 08:42:34 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ismap(char *line)
 	int		i;
 
 	if (!line)
-			return (0);
+		return (0);
 	i = 0;
 	while (line[i] && line[i] != '\n' )
 	{
@@ -33,7 +33,7 @@ size_t	findmaplen(char *file)
 	int		fd;
 	char	*line;
 	int		i;
-	
+
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (0);
@@ -46,7 +46,7 @@ size_t	findmaplen(char *file)
 			i++;
 		}
 		free(line);
-		line = get_next_line(fd);	
+		line = get_next_line(fd);
 	}
 	close (fd);
 	return (i);
@@ -100,11 +100,4 @@ int	*loadrgb(char *line)
 	}
 	ft_free_arr(tab);
 	return (rgb);
-}
-
-int	getcolor(int *rgb)
-{
-	if (!rgb)
-		return (0);
-	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }

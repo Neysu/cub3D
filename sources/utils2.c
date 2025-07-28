@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 04:06:30 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/06/24 04:06:32 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/07/28 08:42:38 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void *opentext(t_data *args, char *path)
+void	*opentext(t_data *args, char *path)
 {
 	void	*img;
 	int		width;
@@ -23,4 +23,11 @@ void *opentext(t_data *args, char *path)
 	if (!img)
 		return (ft_free(args), NULL);
 	return (img);
+}
+
+int	getcolor(int *rgb)
+{
+	if (!rgb)
+		return (0);
+	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 23:04:35 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/03/06 00:42:43 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/07/28 08:59:54 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,21 @@ void	domath(t_data *args, t_player *player_data)
 	int		j;
 	int		map_x;
 	int		map_y;
-	int		texX;
-	int		texY;
+	int		tex_x;
+	int		tex_y;
 	int		hit;
 	int		side;
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
-	double	perpWallDist;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	texPos;
+	double	perp_wall_dist;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	tex_pos;
 	double	step;
-	double	wallX;
+	double	wall_x;
 
 	t_img	*temp;
 
@@ -74,13 +74,13 @@ void	domath(t_data *args, t_player *player_data)
 		player_data->raydir_y = player_data->dir_y + player_data->plane_y * player_data->camera_x;
 
 		if (player_data->raydir_x == 0)
-			deltaDistX = 1e30;
+			delta_dist_x = 1e30;
 		else
-		 	deltaDistX = fabs(1 / player_data->raydir_x);
+		 	delta_dist_x = fabs(1 / player_data->raydir_x);
 		if (player_data->raydir_y == 0)
-			deltaDistY = 1e30;
+			delta_dist_y = 1e30;
 		else
-			deltaDistY =  fabs(1 / player_data->raydir_y);
+			delta_dist_y =  fabs(1 / player_data->raydir_y);
 
 		map_x = (int) player_data->pos_x;
 		map_y = (int) player_data->pos_y;
@@ -88,37 +88,37 @@ void	domath(t_data *args, t_player *player_data)
 		if (player_data->raydir_x < 0)
 		{
 			player_data->step_x = -1;
-			sideDistX = (player_data->pos_x - map_x) * deltaDistX;
+			side_dist_x = (player_data->pos_x - map_x) * delta_dist_x;
 		}
 		else
 		{
 			player_data->step_x = 1;
-			sideDistX = (map_x + 1.0 - player_data->pos_x) * deltaDistX;
+			side_dist_x = (map_x + 1.0 - player_data->pos_x) * delta_dist_x;
 		}
 		if (player_data->raydir_y < 0)
 		{
 			player_data->step_y = -1;
-			sideDistY = (player_data->pos_y - map_y) * deltaDistY;
+			side_dist_y = (player_data->pos_y - map_y) * delta_dist_y;
 		}
 		else
 		{
 			player_data->step_y = 1;
-			sideDistY = (map_y + 1.0 - player_data->pos_y) * deltaDistY;
+			side_dist_y = (map_y + 1.0 - player_data->pos_y) * delta_dist_y;
 		}
 
 		hit = 0;
 
 		while (args->map[map_y] && args->map[map_y][map_x] && hit == 0)
 		{
-			if (sideDistX < sideDistY)
+			if (side_dist_x < side_dist_y)
 			{
-				sideDistX += deltaDistX;
+				side_dist_x += delta_dist_x;
 				map_x += player_data->step_x;
 				side = 0;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
+				side_dist_y += delta_dist_y;
 				map_y += player_data->step_y;
 				side = 1;
 			}
@@ -127,11 +127,11 @@ void	domath(t_data *args, t_player *player_data)
 		}
 
 		if (side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
+			perp_wall_dist = (side_dist_x - delta_dist_x);
 		else
-			perpWallDist = (sideDistY - deltaDistY);
+			perp_wall_dist = (side_dist_y - delta_dist_y);
 
-		lineheight = (int)(SCREEN_HEIGHT / perpWallDist);
+		lineheight = (int)(SCREEN_HEIGHT / perp_wall_dist);
 		drawstart = (lineheight * -1) / 2 + SCREEN_HEIGHT / 2;
 
 		if (side == 0) // Vertical wall: East or West
@@ -157,27 +157,27 @@ void	domath(t_data *args, t_player *player_data)
 			drawend = SCREEN_HEIGHT - 1;
 
 		if (side == 0)
-			wallX = player_data->pos_y + perpWallDist * player_data->raydir_y;
+			wall_x = player_data->pos_y + perp_wall_dist * player_data->raydir_y;
 		else
-			wallX = player_data->pos_x + perpWallDist * player_data->raydir_x;
-		wallX -= floor(wallX);
+			wall_x = player_data->pos_x + perp_wall_dist * player_data->raydir_x;
+		wall_x -= floor(wall_x);
 
-		texX = (int) (wallX * 64.0);
+		tex_x = (int) (wall_x * 64.0);
 
 		if (side == 0 && player_data->raydir_x > 0)
-			texX = 64 - texX - 1;
+			tex_x = 64 - tex_x - 1;
 		if (side == 1 && player_data->raydir_y < 0)
-			texX = 64 - texX - 1;
+			tex_x = 64 - tex_x - 1;
 
 		step = 1.0 * 64.0 / lineheight;
 
-		texPos = (drawstart - SCREEN_HEIGHT / 2 + lineheight / 2) * step;
+		tex_pos = (drawstart - SCREEN_HEIGHT / 2 + lineheight / 2) * step;
 		j = drawstart;
 		while (j < drawend)
 		{
-			texY = (int) texPos & (64 - 1);
-			texPos += step;
-			put_pixel(args->img_data, i, j, temp->address[64 * texY + texX]);
+			tex_y = (int) tex_pos & (64 - 1);
+			tex_pos += step;
+			put_pixel(args->img_data, i, j, temp->address[64 * tex_y + tex_x]);
 			j++;
 		}
 

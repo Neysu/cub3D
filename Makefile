@@ -8,7 +8,8 @@ MINILIBX = minilibx/libmlx.a
 SRCDIR = sources
 SRC = $(SRCDIR)/cub3d.c \
       $(SRCDIR)/free.c \
-      $(SRCDIR)/parsing.c \
+      $(SRCDIR)/parsing_0.c \
+	  $(SRCDIR)/parsing_1.c \
       $(SRCDIR)/utils.c \
       $(SRCDIR)/rendering.c \
       $(SRCDIR)/check.c \

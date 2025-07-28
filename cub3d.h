@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/06 00:43:15 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/07/28 09:06:07 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,3 +120,7 @@ char	*loadpath(char *line);
 
 t_data	*get_var(char *map, t_data *args);
 t_data	*get_map(char *file, t_data *args);
+
+void	findvar(char *line, t_text *text, t_data *args);
+void	locateplayer(t_data *args);
+char	**getmap(char *line, t_data *args, int fd);
