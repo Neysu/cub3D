@@ -46,14 +46,28 @@ typedef struct	s_player
 {
 	int			map_x;
 	int			map_y;
+	int			tex_x;
+	int			tex_y;
+	int			side;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	double	tex_pos;
+	double	step;
+	double	wall_x;
 	double		pos_y;
 	double		pos_x;
 	double		dir_x;
 	double		dir_y;
 	double		raydir_x;
 	double		raydir_y;
+	double		perp_wall_dist;
 	double		deltadist_x;
 	double		deltadist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
 	double		camera_x;
 	double		plane_x;
 	double		plane_y;
