@@ -22,9 +22,9 @@ char	**getmap(char *line, t_data *args, int fd)
 	while (ismap(line2) && line2)
 	{
 		args->map[i] = ft_strdup(line2);
+		i++;
 		free(line2);
 		line2 = get_next_line(fd);
-		i++;
 	}
 	free(line2);
 	args->map[i++] = NULL;

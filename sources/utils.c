@@ -19,7 +19,7 @@ int	ismap(char *line)
 	if (!line)
 		return (0);
 	i = 0;
-	while (line[i] && line[i] != '\n' )
+	while (line[i] && line[i] != '\n')
 	{
 		if (!charmap(line[i]))
 			return (0);
@@ -42,9 +42,7 @@ size_t	findmaplen(char *file)
 	while (line)
 	{
 		if (ismap(line))
-		{
-			i++;
-		}
+			++i;
 		free(line);
 		line = get_next_line(fd);
 	}

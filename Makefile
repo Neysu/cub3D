@@ -1,6 +1,6 @@
 NAME = cub3d
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g -O3 -ffast-math #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -O0 -fsanitize=address #-ffast-math
 LIB = libft/libft.a
 FT_PRINTF = ft_printf/ft_printf.a
 MINILIBX = minilibx/libmlx.a

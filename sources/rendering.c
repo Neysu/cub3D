@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 23:04:35 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/09/22 08:13:25 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/09/24 00:57:51 by egibeaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,26 @@ static void checkside (t_player *player_data)
 	if (player_data->raydir_x < 0)
 	{
 		player_data->step_x = -1;
-		player_data->side_dist_x = (player_data->pos_x - player_data->map_x) * player_data->delta_dist_x;
+		player_data->side_dist_x = (player_data->pos_x - player_data->map_x)
+			* player_data->delta_dist_x;
 	}
 	else
 	{
 		player_data->step_x = 1;
-		player_data->side_dist_x = (player_data->map_x + 1.0 - player_data->pos_x) * player_data->delta_dist_x;
+		player_data->side_dist_x = (player_data->map_x + 1.0 - player_data->pos_x)
+			* player_data->delta_dist_x;
 	}
 	if (player_data->raydir_y < 0)
 	{
 		player_data->step_y = -1;
-		player_data->side_dist_y = (player_data->pos_y - player_data->map_y) * player_data->delta_dist_y;
+		player_data->side_dist_y = (player_data->pos_y - player_data->map_y)
+			* player_data->delta_dist_y;
 	}
 	else
 	{
 		player_data->step_y = 1;
-		player_data->side_dist_y = (player_data->map_y + 1.0 - player_data->pos_y) * player_data->delta_dist_y;
+		player_data->side_dist_y = (player_data->map_y + 1.0 - player_data->pos_y) 
+			* player_data->delta_dist_y;
 	}
 }
 
@@ -166,11 +170,11 @@ void	draw_to_screen(int i, t_data *args, t_player *player_data, t_img *temp)
 void	domath(t_data *args, t_player *player_data)
 {
 	int		i;
-	int		j;
 	int		hit;
 	t_img	*temp;
 
 	i = 0;
+	hit = 0;
 	temp = NULL;
 	while (i < SCREEN_WIDTH)
 	{

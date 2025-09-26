@@ -15,6 +15,7 @@
 void	ft_free(t_data *args)
 {
 	ft_free_arr(args->map);
+	free(args->map);
 	free(args->text->ceiling);
 	free(args->text->floor);
 	free(args->text->north);

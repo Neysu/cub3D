@@ -47,7 +47,7 @@ size_t	ft_strlen(const char *str);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
-void	ft_free_arr(void *arr);
+void	ft_free_arr(char **arr);
 void	ft_puttab_fd(char **tab, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	*ft_memchr(const void *s, int c, size_t n);
