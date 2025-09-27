@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include <malloc.h>
 
 int	handle_input(int keysym, t_data *args)
 {

@@ -17,6 +17,8 @@ void	put_pixel(t_img *data, int x, int y, int color)
 	int	pixel;
 
 	pixel = y * (data->size_line / 4) + x;
+	if (pixel > (SCREEN_HEIGHT * SCREEN_WIDTH))
+		return ;
 	data->address[pixel] = color;
 }
 
@@ -115,7 +117,7 @@ void	setdata(t_player *player_data, int index)
 	player_data->map_x = (int) player_data->pos_x;
 	player_data->map_y = (int) player_data->pos_y;
 }
-//1
+
 t_img	*select_text(t_player *player_data, t_data *args)
 {
 	t_img	*temp;
