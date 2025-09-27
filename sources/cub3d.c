@@ -17,7 +17,7 @@ int	handle_input(int keysym, t_data *args)
 {
 	if (keysym == KEY_ESC)
 		close_window(args);
-	mlx_clear_window(args->mlx, args->mlx_win);
+	//mlx_clear_window(args->mlx, args->mlx_win);
 	if (keysym == KEY_W)
 		move(args->map, args->player, MOV_SPEED);
 	if (keysym == KEY_S)
@@ -30,9 +30,9 @@ int	handle_input(int keysym, t_data *args)
 		turn(args->player, (ROT_SPEED * -1));
 	if (keysym == KEY_LEFT)
 		turn(args->player, ROT_SPEED);
-	domath(args, args->player);
-	mlx_put_image_to_window(args->mlx,
-		args->mlx_win, args->img_data->img, 0, 0);
+	//domath(args, args->player);
+	//mlx_put_image_to_window(args->mlx,
+	//	args->mlx_win, args->img_data->img, 0, 0);
 	return (0);
 }
 
@@ -95,9 +95,7 @@ int	main(int ac, char **av)
 	args->img_data->address = (int *)
 		mlx_get_data_addr(args->img_data->img, &args->img_data->bpp,
 			&args->img_data->size_line, &args->img_data->endian);
-	domath(args, args->player);
-	mlx_put_image_to_window(args->mlx,
-		args->mlx_win, args->img_data->img, 0, 0);
+	mlx_loop_hook(args->mlx, domath, args);
 	mlx_hook(args->mlx_win, KeyPress, 1, &handle_input, args);
 	mlx_loop(args->mlx);
 	return (0);
