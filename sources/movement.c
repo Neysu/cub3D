@@ -21,7 +21,7 @@ int	close_window(void *data)
 	mlx_destroy_window(args->mlx, args->mlx_win);
 	args->mlx_win = NULL;
 	mlx_destroy_image(args->mlx, args->img_data->img);
-	mlx_loop_end(args->mlx);
+	ft_free(args);
 	exit(0);
 }
 

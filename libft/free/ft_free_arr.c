@@ -21,6 +21,7 @@ void	ft_free_arr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
+		printf("len --> %d\n", i);
 		free(arr[i]);
 		i++;
 	}

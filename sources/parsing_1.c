@@ -62,7 +62,8 @@ t_data	*get_var(char *file, t_data *args)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	args->map = ft_calloc(sizeof(char *), findmaplen(file));
+	args->maplen = findmaplen(file);
+	args->map = ft_calloc(sizeof(char *), args->maplen);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{

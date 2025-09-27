@@ -55,9 +55,11 @@ int	findedges(char *line)
 	int	i;
 
 	i = 0;
+	if (line[i] == '\n')
+		return (0);
 	while (line[i] != '\n')
 	{
-		if (line[i] != '1' || line[i] != ' ')
+		if (line[i] != '1' && line[i] != ' ')
 			return (0);
 		i++;
 	}

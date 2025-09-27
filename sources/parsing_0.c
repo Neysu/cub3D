@@ -15,13 +15,17 @@
 char	**getmap(char *line, t_data *args, int fd)
 {
 	int		i;
+	static	int call = 0;
 	char	*line2;
 
+	printf("GETMAP HAS BEEN CALLED %d TIMES !!!", call);
+	call++;
 	i = 0;
 	line2 = ft_strdup(line);
-	while (ismap(line2) && line2)
+	while (line2 && ismap(line2))
 	{
 		args->map[i] = ft_strdup(line2);
+		printf("%d\n", i);
 		i++;
 		free(line2);
 		line2 = get_next_line(fd);

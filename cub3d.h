@@ -49,12 +49,12 @@ typedef struct	s_player
 	int			tex_x;
 	int			tex_y;
 	int			side;
-	int		lineheight;
-	int		drawstart;
-	int		drawend;
-	double	tex_pos;
-	double	step;
-	double	wall_x;
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
+	double		tex_pos;
+	double		step;
+	double		wall_x;
 	double		pos_y;
 	double		pos_x;
 	double		dir_x;
@@ -107,6 +107,7 @@ typedef struct	s_data
 	t_img		*wall_text[5];
 	t_text		*text;
 	t_player	*player;
+	int			maplen;
 }				t_data;
 
 size_t	findmaplen(char *map);

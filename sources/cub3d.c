@@ -99,6 +99,5 @@ int	main(int ac, char **av)
 		args->mlx_win, args->img_data->img, 0, 0);
 	mlx_hook(args->mlx_win, KeyPress, 1, &handle_input, args);
 	mlx_loop(args->mlx);
-	ft_free(args);
 	return (0);
 }
