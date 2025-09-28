@@ -167,89 +167,38 @@ void	draw_to_screen(int i, t_data *args, t_player *player_data, t_img *temp)
 		j++;
 	}
 	drawline(i, player_data->drawstart, player_data->drawend, args);
+}
+
+int	domath(void *data)
+{
+	int		i;
+	int		hit;
+	t_data	*args;
+	t_img	*temp;
+
+	i = 0;
+	hit = 0;
+	temp = NULL;
+	args = (t_data *) data;
+	while (i < SCREEN_WIDTH)
+	{
+		setdata(args->player, i);
+		checkside(args->player);
+		find_wall(args, args->player, hit);
+		temp = select_text(args->player, args);
+		if (args->player->drawstart < 0)
+			args->player->drawstart = 0;
+		args->player->drawend = args->player->lineheight / 2 + SCREEN_HEIGHT / 2;
+		if (args->player->drawend >= SCREEN_HEIGHT)
+			args->player->drawend = SCREEN_HEIGHT - 1;
+		func(args->player);
+		args->player->step = 1.0 * 64.0 / args->player->lineheight;
+		args->player->tex_pos = (args->player->drawstart - SCREEN_HEIGHT / 2 + args->player->lineheight / 2) * args->player->step;
+		draw_to_screen(i, args, args->player, temp);
+		i++;
+	}
 	mlx_put_image_to_window(args->mlx,
 		args->mlx_win, args->img_data->img, 0, 0);
+	return (1);
 }
 
-//int	domath(void *data)
-//{
-//	int		i;
-//	int		hit;
-//	double	time = 0;	// for testing only remove when pusing
-//	double	oldTime = 0;// same here 
-//	t_data	*args;
-//	t_img	*temp;
-//
-//	i = 0;
-//	hit = 0;
-//	temp = NULL;
-//	args = (t_data *) data;
-//	while (i < SCREEN_WIDTH)
-//	{
-//		oldTime = time;
-//		time = getTicks();
-//		printf("fps -> %f\n", (time - oldTime) / 1000.0);
-//		setdata(args->player, i);
-//		checkside(args->player);
-//		find_wall(args, args->player, hit);
-//		temp = select_text(args->player, args);
-//		if (args->player->drawstart < 0)
-//			args->player->drawstart = 0;
-//		args->player->drawend = args->player->lineheight / 2 + SCREEN_HEIGHT / 2;
-//		if (args->player->drawend >= SCREEN_HEIGHT)
-//			args->player->drawend = SCREEN_HEIGHT - 1;
-//		func(args->player);
-//		args->player->step = 1.0 * 64.0 / args->player->lineheight;
-//		args->player->tex_pos = (args->player->drawstart - SCREEN_HEIGHT / 2 + args->player->lineheight / 2) * args->player->step;
-//		draw_to_screen(i, args, args->player, temp);
-//		i++;
-//	}
-//	return (1);
-//}
-//
-
-
-
-int domath(void *data)
-{
-    static double oldTime_ms = 0;   // persists between frames
-    double        time_ms;
-    int           i = 0;
-    int           hit = 0;
-    t_data        *args = (t_data *)data;
-    t_img         *temp = NULL;
-    struct timespec ts;
-
-    // get current time at start of frame
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    time_ms = ts.tv_sec * 1000.0 + ts.tv_nsec / 1.0e6;
-
-    // --- drawing loop ---
-    while (i < SCREEN_WIDTH)
-    {
-        setdata(args->player, i);
-        checkside(args->player);
-        find_wall(args, args->player, hit);
-        temp = select_text(args->player, args);
-        if (args->player->drawstart < 0)
-            args->player->drawstart = 0;
-        args->player->drawend = args->player->lineheight / 2 + SCREEN_HEIGHT / 2;
-        if (args->player->drawend >= SCREEN_HEIGHT)
-            args->player->drawend = SCREEN_HEIGHT - 1;
-        func(args->player);
-        args->player->step = 64.0 / args->player->lineheight;
-        args->player->tex_pos = (args->player->drawstart - SCREEN_HEIGHT / 2
-            + args->player->lineheight / 2) * args->player->step;
-        draw_to_screen(i, args, args->player, temp);
-        i++;
-    }
-
-    // print FPS once per frame
-    if (oldTime_ms > 0) {
-        double frameTime = time_ms - oldTime_ms;
-        printf("FPS: %.2f\n", 1000.0 / frameTime);
-    }
-    oldTime_ms = time_ms;
-
-    return (1);
-}

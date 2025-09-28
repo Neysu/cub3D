@@ -13,8 +13,11 @@
 #include "../cub3d.h"
 #include <malloc.h>
 
-int	handle_input(int keysym, t_data *args)
+int handle_input_real(int keysym, void *param)
 {
+	t_data	*args;
+
+	args = (t_data *) param;
 	if (keysym == KEY_ESC)
 		close_window(args);
 	//mlx_clear_window(args->mlx, args->mlx_win);
@@ -96,7 +99,7 @@ int	main(int ac, char **av)
 		mlx_get_data_addr(args->img_data->img, &args->img_data->bpp,
 			&args->img_data->size_line, &args->img_data->endian);
 	mlx_loop_hook(args->mlx, domath, args);
-	mlx_hook(args->mlx_win, KeyPress, 1, &handle_input, args);
+	mlx_hook(args->mlx_win, KeyPress, 1, handle_input_real, args);
 	mlx_loop(args->mlx);
 	return (0);
 }
