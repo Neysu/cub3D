@@ -22,7 +22,6 @@ static void	ft_free_map(char **arr, int len)
 	while (i < len)
 	{
 		free(arr[i]);
-		printf("maplen --> %d\n", i);
 		i++;
 	}
 	free(arr);
@@ -32,7 +31,8 @@ void	ft_free(t_data *args)
 {
 	int i = 0;
 	ft_free_map(args->map, args->maplen);
-	while (i < 4) {
+	while (i < 4)
+	{
 		mlx_destroy_image(args->mlx, args->wall_text[i]->img);
 		free(args->wall_text[i]->path);
 		free(args->wall_text[i]);

@@ -20,7 +20,6 @@ int handle_input_real(int keysym, void *param)
 	args = (t_data *) param;
 	if (keysym == KEY_ESC)
 		close_window(args);
-	//mlx_clear_window(args->mlx, args->mlx_win);
 	if (keysym == KEY_W)
 		move(args->map, args->player, MOV_SPEED);
 	if (keysym == KEY_S)
@@ -33,9 +32,6 @@ int handle_input_real(int keysym, void *param)
 		turn(args->player, (ROT_SPEED * -1));
 	if (keysym == KEY_LEFT)
 		turn(args->player, ROT_SPEED);
-	//domath(args, args->player);
-	//mlx_put_image_to_window(args->mlx,
-	//	args->mlx_win, args->img_data->img, 0, 0);
 	return (0);
 }
 
