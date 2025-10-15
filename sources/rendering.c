@@ -140,6 +140,12 @@ t_img	*select_text(t_player *player_data, t_data *args)
 
 void	func(t_player *player_data)
 {
+
+	if (player_data->drawstart < 0)
+		player_data->drawstart = 0;
+	player_data->drawend = player_data->lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (player_data->drawend >= SCREEN_HEIGHT)
+		player_data->drawend = SCREEN_HEIGHT - 1;
  	if (player_data->side == 0)
  		player_data->wall_x = player_data->pos_y + player_data->perp_wall_dist * player_data->raydir_y;
  	else
@@ -186,11 +192,6 @@ int	domath(void *data)
 		checkside(args->player);
 		find_wall(args, args->player, hit);
 		temp = select_text(args->player, args);
-		if (args->player->drawstart < 0)
-			args->player->drawstart = 0;
-		args->player->drawend = args->player->lineheight / 2 + SCREEN_HEIGHT / 2;
-		if (args->player->drawend >= SCREEN_HEIGHT)
-			args->player->drawend = SCREEN_HEIGHT - 1;
 		func(args->player);
 		args->player->step = 1.0 * 64.0 / args->player->lineheight;
 		args->player->tex_pos = (args->player->drawstart - SCREEN_HEIGHT / 2 + args->player->lineheight / 2) * args->player->step;
