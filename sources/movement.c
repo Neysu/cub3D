@@ -47,11 +47,21 @@ void	move(char **map, t_player *player_data, double movSpeed)
 	int	y;
 	int	x;
 
-	x = (int)(player_data->pos_x + player_data->dir_x * movSpeed);
-	y = (int)(player_data->pos_y + player_data->dir_y * movSpeed);
-	if (map[(int)player_data->pos_y][x] != '1')
+	if (movSpeed > 0)
+	{
+		x = (int) (player_data->pos_x + player_data->dir_x * (movSpeed + MARGIN));
+		y = (int) (player_data->pos_y + player_data->dir_y * (movSpeed + MARGIN));
+	}
+	if (movSpeed < 0)
+	{
+		x = (int) (player_data->pos_x + player_data->dir_x * (movSpeed - MARGIN));
+		y = (int) (player_data->pos_y + player_data->dir_y * (movSpeed - MARGIN));
+	}
+	if (map[(int) player_data->pos_y][x] != '1')
 		player_data->pos_x += player_data->dir_x * movSpeed;
-	if (map[y][(int)player_data->pos_x] != '1')
+	else
+		return ;
+	if (map[y][(int) player_data->pos_x] != '1')
 		player_data->pos_y += player_data->dir_y * movSpeed;
 }
 
@@ -60,10 +70,18 @@ void	straf(char **map, t_player *player_data, double movSpeed)
 	int	x;
 	int	y;
 
-	x = (int)(player_data->pos_x + player_data->dir_y * movSpeed);
-	y = (int)(player_data->pos_y - player_data->dir_x * movSpeed);
-	if (map[(int)player_data->pos_y][x] != '1')
+	if (movSpeed > 0)
+	{
+		x = (int) (player_data->pos_x + player_data->dir_y * (movSpeed + MARGIN));
+		y = (int) (player_data->pos_y - player_data->dir_x * (movSpeed + MARGIN));
+	}
+	else
+	{
+		x = (int) (player_data->pos_x + player_data->dir_y * (movSpeed - MARGIN));
+		y = (int) (player_data->pos_y - player_data->dir_x * (movSpeed - MARGIN));
+	}
+	if (map[(int) player_data->pos_y][x] != '1')
 		player_data->pos_x += player_data->dir_y * movSpeed;
-	if (map[y][(int)player_data->pos_x] != '1')
+	if (map[y][(int) player_data->pos_x] != '1')
 		player_data->pos_y -= player_data->dir_x * movSpeed;
 }

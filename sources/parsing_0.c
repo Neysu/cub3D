@@ -15,17 +15,13 @@
 char	**getmap(char *line, t_data *args, int fd)
 {
 	int		i;
-	static	int call = 0;
 	char	*line2;
 
-	printf("GETMAP HAS BEEN CALLED %d TIMES !!!", call);
-	call++;
 	i = 0;
 	line2 = ft_strdup(line);
 	while (line2 && ismap(line2))
 	{
 		args->map[i] = ft_strdup(line2);
-		printf("%d\n", i);
 		i++;
 		free(line2);
 		line2 = get_next_line(fd);
@@ -66,8 +62,8 @@ void	locateplayer(t_data *args)
 		{
 			if (isplayer(map[y][x]))
 			{
-				args->player->pos_x = (double) x;
-				args->player->pos_y = (double) y;
+				args->player->pos_x = (double) x + 1;
+				args->player->pos_y = (double) y + 1;
 				args->player->orientation = map[y][x];
 				return ;
 			}

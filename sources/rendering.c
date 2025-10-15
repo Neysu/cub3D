@@ -14,7 +14,7 @@
 
 void	put_pixel(t_img *data, int x, int y, int color)
 {
-	int	pixel;
+	unsigned int	pixel;
 
 	pixel = y * (data->size_line / 4) + x;
 	if (pixel > (SCREEN_HEIGHT * SCREEN_WIDTH))
@@ -27,23 +27,21 @@ void	drawline(int x, int start, int end, t_data *args)
 	int			i;
 
 	i = 0;
-	while (i != start)
+	while (i < start)
 	{
 		put_pixel(args->img_data, x, i, args->text->ceiling_color);
 		i++;
 	}
-	while (i != end)
-	{
+	while (i < end)
 		i++;
-	}
-	while (i != SCREEN_HEIGHT)
+	while (i < SCREEN_HEIGHT)
 	{
 		put_pixel(args->img_data, x, i, args->text->floor_color);
 		i++;
 	}
 }
 
-static void checkside (t_player *player_data)
+static void checkside(t_player *player_data)
 {
 	if (player_data->raydir_x < 0)
 	{
@@ -96,7 +94,7 @@ static void find_wall(t_data *args, t_player *player_data, int hit)
 		player_data->perp_wall_dist = (player_data->side_dist_x - player_data->delta_dist_x);
 	else
 		player_data->perp_wall_dist = (player_data->side_dist_y - player_data->delta_dist_y);
-	player_data->lineheight = (int) (SCREEN_HEIGHT / player_data->perp_wall_dist);
+	player_data->lineheight = (unsigned int) (SCREEN_HEIGHT / player_data->perp_wall_dist);
 	player_data->drawstart = (player_data->lineheight * -1) / 2 + SCREEN_HEIGHT / 2;
 }
 
@@ -149,7 +147,7 @@ void	func(t_player *player_data)
  	player_data->wall_x -= floor(player_data->wall_x);
  	player_data->tex_x = (int) (player_data->wall_x * 64.0);
  	if (player_data->side == 0 && player_data->raydir_x > 0)
- 		player_data->tex_x = 64 - player_data->tex_x - 1;
+		player_data->tex_x = 64 - player_data->tex_x - 1;
 	if (player_data->side == 1 && player_data->raydir_y < 0)
 		player_data->tex_x = 64 - player_data->tex_x - 1;
 }
@@ -159,6 +157,8 @@ void	draw_to_screen(int i, t_data *args, t_player *player_data, t_img *temp)
 	int	j;
 
 	j = player_data->drawstart;
+	if (player_data->drawstart > player_data->drawend)
+		player_data->drawstart = 0;
 	while (j < player_data->drawend)
 	{
 		player_data->tex_y = (int) player_data->tex_pos & (64 - 1);

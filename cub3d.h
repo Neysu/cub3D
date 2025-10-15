@@ -42,6 +42,7 @@
 #define FOV	0.66
 #define ROT_SPEED 0.1
 #define MOV_SPEED 0.1
+#define MARGIN 0.2
 
 typedef struct	s_player
 {
