@@ -62,8 +62,8 @@ void	locateplayer(t_data *args)
 		{
 			if (isplayer(map[y][x]))
 			{
-				args->player->pos_x = (double) x + 1;
-				args->player->pos_y = (double) y + 1;
+				args->player->pos_x = (double) x + 0.1;
+				args->player->pos_y = (double) y + 0.1;
 				args->player->orientation = map[y][x];
 				return ;
 			}

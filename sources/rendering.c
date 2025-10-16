@@ -73,8 +73,9 @@ static void find_wall(t_data *args, t_player *player_data, int hit)
 {
 	hit = 0;
 
-	while (args->map[player_data->map_y] && args->map[player_data->map_y][player_data->map_x] && hit == 0)
+	while (args->map[player_data->map_y] && args->map[player_data->map_y][player_data->map_x] && !hit)
 	{
+		printf("%s\n", args->map[player_data->map_y]);
 		if (player_data->side_dist_x < player_data->side_dist_y)
 		{
 			player_data->side_dist_x += player_data->delta_dist_x;
