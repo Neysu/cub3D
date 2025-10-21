@@ -14,7 +14,8 @@ SRC = $(SRCDIR)/cub3d.c \
       $(SRCDIR)/rendering.c \
       $(SRCDIR)/check.c \
 	  $(SRCDIR)/utils2.c \
-	  $(SRCDIR)/movement.c
+	  $(SRCDIR)/movement.c \
+	  $(SRCDIR)/floodfill.c
 
 OBJ := $(SRC:.c=.o)
 
