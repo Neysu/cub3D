@@ -24,7 +24,6 @@ static void	ft_free_map(char **arr, int len)
 		free(arr[i]);
 		i++;
 	}
-	free(arr);
 }
 
 static void	ft_free_img(t_data	*args)
@@ -47,6 +46,7 @@ static void	ft_free_img(t_data	*args)
 void	ft_free(t_data *args)
 {
 	ft_free_map(args->map, args->maplen);
+	free(args->map);
 	ft_free_img(args);
 	if (args->text) {
 		free(args->text->ceiling);
