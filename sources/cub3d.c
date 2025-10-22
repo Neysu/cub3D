@@ -11,48 +11,8 @@
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <malloc.h>
 
-int handle_input_real(int keysym, void *param)
-{
-	t_data	*args;
-
-	args = (t_data *) param;
-	if (keysym == KEY_ESC)
-		close_window(args);
-	if (keysym == KEY_W)
-		move(args->map, args->player, MOV_SPEED);
-	if (keysym == KEY_S)
-		move(args->map, args->player, (MOV_SPEED * -1));
-	if (keysym == KEY_D)
-		straf(args->map, args->player, MOV_SPEED);
-	if (keysym == KEY_A)
-		straf(args->map, args->player, (MOV_SPEED * -1));
-	if (keysym == KEY_RIGHT)
-		turn(args->player, (ROT_SPEED * -1));
-	if (keysym == KEY_LEFT)
-		turn(args->player, ROT_SPEED);
-	return (0);
-}
-
-void	loadtext(t_data *args)
-{
-	t_img	**temp;
-	int		i;
-
-	i = 0;
-	temp = args->wall_text;
-	while (temp[i])
-	{
-		temp[i]->img = opentext(args, temp[i]->path);
-		temp[i]->address = (int *)
-			mlx_get_data_addr(temp[i]->img, &temp[i]->bpp,
-				&temp[i]->size_line, &temp[i]->endian);
-		i++;
-	}
-}
-
-t_data	*loadvar(char **av)
+static t_data	*allocate( void )
 {
 	t_data	*args;
 	int		i;
@@ -65,10 +25,22 @@ t_data	*loadvar(char **av)
 	while (i < 4)
 	{
 		args->wall_text[i] = ft_calloc(sizeof(t_img), 1);
+		args->wall_text[i]->img = NULL;
+		args->wall_text[i]->path = NULL;
 		i++;
 	}
-	get_var(av[1], args);
-	get_map(av[1], args);
+	return (args);
+}
+
+static t_data	*loadvar(char **av)
+{
+	t_data	*args;
+
+	args = allocate();
+	if (!get_var(av[1], args))
+		return (ft_free(args), NULL);
+	if (!get_map(av[1], args))
+		return (ft_free(args), NULL);
 	args->mlx = mlx_init();
 	if (!args->mlx)
 		return (ft_putendl_fd(ERROR, 2), ft_free(args), NULL);
@@ -90,6 +62,8 @@ int	main(int ac, char **av)
 	if (!ft_strnext(av[1], ".cub", ft_strlen(av[1])))
 		return (ft_putendl_fd("Wrong file extension", STDERR_FILENO), 1);
 	args = loadvar(av);
+	if (!args)
+		return (1);
 	args->img_data->img = mlx_new_image(args->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	args->img_data->address = (int *)
 		mlx_get_data_addr(args->img_data->img, &args->img_data->bpp,

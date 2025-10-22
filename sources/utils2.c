@@ -25,6 +25,23 @@ void	*opentext(t_data *args, char *path)
 	return (img);
 }
 
+void	loadtext(t_data *args)
+{
+	t_img	**temp;
+	int		i;
+
+	i = 0;
+	temp = args->wall_text;
+	while (temp[i])
+	{
+		temp[i]->img = opentext(args, temp[i]->path);
+		temp[i]->address = (int *)
+			mlx_get_data_addr(temp[i]->img, &temp[i]->bpp,
+				&temp[i]->size_line, &temp[i]->endian);
+		i++;
+	}
+}
+
 int	getcolor(int *rgb)
 {
 	if (!rgb)

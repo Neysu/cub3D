@@ -27,24 +27,36 @@ static void	ft_free_map(char **arr, int len)
 	free(arr);
 }
 
-void	ft_free(t_data *args)
+static void	ft_free_img(t_data	*args)
 {
-	int i = 0;
-	ft_free_map(args->map, args->maplen);
+	int	i;
+
+	i = 0;
 	while (i < 4)
 	{
-		mlx_destroy_image(args->mlx, args->wall_text[i]->img);
-		free(args->wall_text[i]->path);
-		free(args->wall_text[i]);
+		if (args->wall_text[i]->img)
+			mlx_destroy_image(args->mlx, args->wall_text[i]->img);
+		if (args->wall_text[i]->path)
+			free(args->wall_text[i]->path);
+		if (args->wall_text[i])
+			free(args->wall_text[i]);
 		i++;
 	}
-	free(args->text->ceiling);
-	free(args->text->floor);
-	free(args->text->north);
-	free(args->text->south);
-	free(args->text->west);
-	free(args->text->east);
-	free(args->text);
+}
+
+void	ft_free(t_data *args)
+{
+	ft_free_map(args->map, args->maplen);
+	ft_free_img(args);
+	if (args->text) {
+		free(args->text->ceiling);
+		free(args->text->floor);
+		free(args->text->north);
+		free(args->text->south);
+		free(args->text->west);
+		free(args->text->east);
+		free(args->text);
+	}
 	free(args->img_data);
 	free(args->player);
 	free(args);

@@ -97,6 +97,8 @@ t_data	*get_map(char *file, t_data *args)
 	free(line);
 	close(fd);
 	locateplayer(args);
+	if (!floodfill(args->map))
+		return (ft_putendl_fd("Map ERROR", STDERR_FILENO), NULL);
 	setplayervar(args);
 	return (args);
 }

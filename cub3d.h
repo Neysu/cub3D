@@ -115,9 +115,11 @@ typedef struct	s_data
 size_t	findmaplen(char *map);
 
 void	*opentext(t_data *args, char *path);
+void	loadtext(t_data *args);
 
 void	ft_free(t_data *args);
 int		domath(void *data);
+int		handle_input_real(int keysym, void *param);
 void	turn(t_player *player_data, double rotSpeed);
 void	put_pixel(t_img *data, int x, int y, int color);
 void	move(char **map, t_player *player_data, double movSpeed);
@@ -142,4 +144,4 @@ void	findvar(char *line, t_text *text, t_data *args);
 void	locateplayer(t_data *args);
 char	**getmap(char *line, t_data *args, int fd);
 
-int	floodfill(char **mat);
+int		floodfill(char **mat);

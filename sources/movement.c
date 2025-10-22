@@ -25,6 +25,28 @@ int	close_window(void *data)
 	exit(0);
 }
 
+int handle_input_real(int keysym, void *param)
+{
+	t_data	*args;
+
+	args = (t_data *) param;
+	if (keysym == KEY_ESC)
+		close_window(args);
+	if (keysym == KEY_W)
+		move(args->map, args->player, MOV_SPEED);
+	if (keysym == KEY_S)
+		move(args->map, args->player, (MOV_SPEED * -1));
+	if (keysym == KEY_D)
+		straf(args->map, args->player, MOV_SPEED);
+	if (keysym == KEY_A)
+		straf(args->map, args->player, (MOV_SPEED * -1));
+	if (keysym == KEY_RIGHT)
+		turn(args->player, (ROT_SPEED * -1));
+	if (keysym == KEY_LEFT)
+		turn(args->player, ROT_SPEED);
+	return (0);
+}
+
 void	turn(t_player *player_data, double rotSpeed)
 {
 	double	old_dir_x;
