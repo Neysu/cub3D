@@ -12,6 +12,22 @@
 
 #include "../cub3d.h"
 
+int	check_var(t_data *args)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (!args->wall_text[i]->path)
+			return (1);
+		i++;
+	}
+	if (!args->text->ceiling || !args->text->floor)
+		return (1);
+	return (0);
+}
+
 char	**getmap(char *line, t_data *args, int fd)
 {
 	int		i;

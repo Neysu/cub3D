@@ -33,10 +33,11 @@
 #define KEY_LEFT 65361
 
 #define ERROR "Error"
-#define NORTH_WALL "textures/mossy.xpm"
-#define WEST_WALL "textures/bluestone.xpm"
-#define SOUTH_WALL "textures/redbrick.xpm"
-#define EAST_WALL "textures/mossy.xpm"
+#define	ERROR_MAP "Error Map"
+#define ERROR_VAR "Error while loading vars from map"
+#define STDIN	STDIN_FILENO
+#define STDOUT	STDOUT_FILENO
+#define STDERR	STDERR_FILENO
 #define SCREEN_HEIGHT 600
 #define SCREEN_WIDTH 800
 #define FOV	0.66
@@ -133,6 +134,7 @@ int		isplayer(char c);
 int		ismap(char *line);
 int		getcolor(int *rgb);
 int		findedges(char *line);
+int		check_var(t_data *args);
 int		close_window(void *data);
 
 char	*loadpath(char *line);
