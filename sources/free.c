@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egibeaux <egibeaux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:55:49 by elliot            #+#    #+#             */
-/*   Updated: 2025/03/05 22:41:11 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/10/27 13:10:20 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	ft_free(t_data *args)
 	ft_free_map(args->map, args->maplen);
 	free(args->map);
 	ft_free_img(args);
-	if (args->text) {
+	if (args->text)
+	{
 		free(args->text->ceiling);
 		free(args->text->floor);
 		free(args->text->north);

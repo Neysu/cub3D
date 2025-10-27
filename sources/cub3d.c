@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/14 01:36:09 by egibeaux         ###   ########.fr       */
+/*   Updated: 2025/10/27 13:09:27 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static t_data	*loadvar(char **av)
 
 	args = allocate();
 	if (!get_var(av[1], args))
-		return (ft_putendl_fd(ERROR_VAR , STDERR), ft_free(args), NULL);
+		return (ft_putendl_fd(ERROR_VAR, STDERR), ft_free(args), NULL);
 	if (!get_map(av[1], args))
-		return (ft_putendl_fd(ERROR_MAP, STDERR),ft_free(args), NULL);
+		return (ft_putendl_fd(ERROR_MAP, STDERR), ft_free(args), NULL);
 	args->mlx = mlx_init();
 	if (!args->mlx)
 		return (ft_putendl_fd(ERROR, 2), ft_free(args), NULL);

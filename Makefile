@@ -11,7 +11,8 @@ SRC = $(SRCDIR)/cub3d.c \
       $(SRCDIR)/parsing_0.c \
 	  $(SRCDIR)/parsing_1.c \
       $(SRCDIR)/utils.c \
-      $(SRCDIR)/rendering.c \
+      $(SRCDIR)/rendering_0.c \
+      $(SRCDIR)/rendering_1.c \
       $(SRCDIR)/check.c \
 	  $(SRCDIR)/utils2.c \
 	  $(SRCDIR)/movement.c \

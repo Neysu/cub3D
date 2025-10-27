@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:45:52 by egatien           #+#    #+#             */
-/*   Updated: 2025/07/28 08:49:40 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/27 13:13:26 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	close_window(void *data)
 	exit(0);
 }
 
-int handle_input_real(int keysym, void *param)
+int	handle_input_real(int keysym, void *param)
 {
 	t_data	*args;
 
@@ -71,13 +71,17 @@ void	move(char **map, t_player *player_data, double movSpeed)
 
 	if (movSpeed > 0)
 	{
-		x = (int) (player_data->pos_x + player_data->dir_x * (movSpeed + MARGIN));
-		y = (int) (player_data->pos_y + player_data->dir_y * (movSpeed + MARGIN));
+		x = (int)(player_data->pos_x
+				+ player_data->dir_x * (movSpeed + MARGIN));
+		y = (int)(player_data->pos_y
+				+ player_data->dir_y * (movSpeed + MARGIN));
 	}
 	if (movSpeed < 0)
 	{
-		x = (int) (player_data->pos_x + player_data->dir_x * (movSpeed - MARGIN));
-		y = (int) (player_data->pos_y + player_data->dir_y * (movSpeed - MARGIN));
+		x = (int)(player_data->pos_x
+				+ player_data->dir_x * (movSpeed - MARGIN));
+		y = (int)(player_data->pos_y
+				+ player_data->dir_y * (movSpeed - MARGIN));
 	}
 	if (map[(int) player_data->pos_y][x] != '1')
 		player_data->pos_x += player_data->dir_x * movSpeed;
@@ -94,13 +98,17 @@ void	straf(char **map, t_player *player_data, double movSpeed)
 
 	if (movSpeed > 0)
 	{
-		x = (int) (player_data->pos_x + player_data->dir_y * (movSpeed + MARGIN));
-		y = (int) (player_data->pos_y - player_data->dir_x * (movSpeed + MARGIN));
+		x = (int)(player_data->pos_x
+				+ player_data->dir_y * (movSpeed + MARGIN));
+		y = (int)(player_data->pos_y
+				- player_data->dir_x * (movSpeed + MARGIN));
 	}
 	else
 	{
-		x = (int) (player_data->pos_x + player_data->dir_y * (movSpeed - MARGIN));
-		y = (int) (player_data->pos_y - player_data->dir_x * (movSpeed - MARGIN));
+		x = (int)(player_data->pos_x
+				+ player_data->dir_y * (movSpeed - MARGIN));
+		y = (int)(player_data->pos_y
+				- player_data->dir_x * (movSpeed - MARGIN));
 	}
 	if (map[(int) player_data->pos_y][x] != '1')
 		player_data->pos_x += player_data->dir_y * movSpeed;
