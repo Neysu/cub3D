@@ -33,7 +33,7 @@ char	*search_start(char **mat, int *x, int *y)
 		}
 		i++;
 	}
-	return (ft_putendl_fd("YEYA", 2), NULL);
+	return (NULL);
 }
 
 int	start_floodfill(int x, int y, char **mat)
@@ -91,7 +91,7 @@ int	floodfill(char **mat)
 	if (!start)
 	{
 		ft_free_arr(newmat);
-		return (ft_putendl_fd("here", 2), 0);
+		return (0);
 	}
 	(*start) = '0';
 	result = start_floodfill(x, y, newmat);
