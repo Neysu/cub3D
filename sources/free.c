@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:55:49 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/27 13:10:20 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/27 15:58:17 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ void	ft_free(t_data *args)
 	}
 	free(args->img_data);
 	free(args->player);
+	if (args->mlx != NULL)
+		mlx_destroy_display(args->mlx);
 	free(args);
 }
