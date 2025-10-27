@@ -33,11 +33,11 @@
 #define KEY_LEFT 65361
 
 #define ERROR "Error"
-#define	ERROR_MAP "Error Map"
+#define ERROR_MAP "Error Map"
 #define ERROR_VAR "Error while loading vars from map"
-#define STDIN	STDIN_FILENO
-#define STDOUT	STDOUT_FILENO
-#define STDERR	STDERR_FILENO
+#define STDIN STDIN_FILENO
+#define STDOUT STDOUT_FILENO
+#define STDERR STDERR_FILENO
 #define SCREEN_HEIGHT 600
 #define SCREEN_WIDTH 800
 #define FOV	0.66
@@ -45,7 +45,7 @@
 #define MOV_SPEED 0.1
 #define MARGIN 0.2
 
-typedef struct	s_player
+typedef struct s_player
 {
 	int			map_x;
 	int			map_y;
@@ -91,7 +91,7 @@ typedef struct s_text
 	char		*west;
 }				t_text;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void			*img;
 	char			*path;
@@ -101,7 +101,7 @@ typedef struct	s_img
 	int				bpp;
 }				t_img;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void		*mlx;
 	void		*mlx_win;

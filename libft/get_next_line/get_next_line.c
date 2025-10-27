@@ -27,7 +27,7 @@ char	*join_line(int nl_position, char **buffer)
 	char	*tmp;
 
 	tmp = NULL;
-	if (nl_position <= 0 )
+	if (nl_position <= 0)
 	{
 		if (**buffer == '\0')
 		{
