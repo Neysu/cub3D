@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:08:41 by egatien           #+#    #+#             */
-/*   Updated: 2025/10/21 16:29:53 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/27 11:56:02 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ char	*search_start(char **mat, int *x, int *y)
 		j = 0;
 		while (mat[i][j] != '\0')
 		{
-			j++;
 			if (isplayer(mat[i][j]))
 			{
 				*x = j;
 				*y = i;
 				return (&mat[i][j]);
 			}
+			j++;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:21:35 by elliot            #+#    #+#             */
-/*   Updated: 2025/07/28 08:42:34 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/27 11:55:39 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	findedges(char *line)
 		return (0);
 	while (line[i] != '\n')
 	{
-		if (line[i] != '1' && line[i] != ' ')
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '0')
 			return (0);
 		i++;
 	}
