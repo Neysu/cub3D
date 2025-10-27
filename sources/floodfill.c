@@ -18,23 +18,22 @@ char	*search_start(char **mat, int *x, int *y)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (mat[i])
 	{
+		j = 0;
 		while (mat[i][j] != '\0')
 		{
 			j++;
-			if (mat[i][j] == 'S')
+			if (isplayer(mat[i][j]))
 			{
 				*x = j;
 				*y = i;
 				return (&mat[i][j]);
 			}
 		}
-		j = 0;
 		i++;
 	}
-	return (NULL);
+	return (ft_putendl_fd("YEYA", 2), NULL);
 }
 
 int	start_floodfill(int x, int y, char **mat)
@@ -89,10 +88,10 @@ int	floodfill(char **mat)
 	if (!newmat)
 		return (0);
 	start = search_start(newmat, &x, &y);
-	if (start == NULL)
+	if (!start)
 	{
 		ft_free_arr(newmat);
-		return (0);
+		return (ft_putendl_fd("here", 2), 0);
 	}
 	(*start) = '0';
 	result = start_floodfill(x, y, newmat);

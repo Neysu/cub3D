@@ -63,7 +63,6 @@ t_data	*get_var(char *file, t_data *args)
 	if (fd == -1)
 		return (NULL);
 	args->maplen = findmaplen(file);
-	args->map = ft_calloc(sizeof(char *), args->maplen);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -73,7 +72,6 @@ t_data	*get_var(char *file, t_data *args)
 	}
 	free(line);
 	close(fd);
-	locateplayer(args);
 	if (check_var(args))
 		return (NULL);
 	setplayervar(args);
@@ -89,7 +87,7 @@ t_data	*get_map(char *file, t_data *args)
 	if (fd == -1)
 		return (NULL);
 	line = get_next_line(fd);
-	while (line != NULL)
+	while (line)
 	{
 		if (findedges(line))
 			args->map = getmap(line, args, fd);
@@ -98,9 +96,11 @@ t_data	*get_map(char *file, t_data *args)
 	}
 	free(line);
 	close(fd);
+	if (!args->map)
+		return (NULL);
 	locateplayer(args);
 	if (!floodfill(args->map))
-		return ( NULL);
+		return (NULL);
 	setplayervar(args);
 	return (args);
 }

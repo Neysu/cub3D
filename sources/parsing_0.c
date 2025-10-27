@@ -32,19 +32,23 @@ char	**getmap(char *line, t_data *args, int fd)
 {
 	int		i;
 	char	*line2;
+	char	**map;
 
 	i = 0;
+	map = ft_calloc(sizeof(char *), args->maplen);
 	line2 = ft_strdup(line);
 	while (line2 && ismap(line2))
 	{
-		args->map[i] = ft_strdup(line2);
+		map[i] = ft_strdup(line2);
 		i++;
 		free(line2);
 		line2 = get_next_line(fd);
 	}
 	free(line2);
-	args->map[i++] = NULL;
-	return (args->map);
+	map[i++] = NULL;
+	if (!floodfill(map))
+		return (ft_free_arr(map), NULL);
+	return (map);
 }
 
 void	findvar(char *line, t_text *text, t_data *args)
