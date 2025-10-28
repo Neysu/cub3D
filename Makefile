@@ -1,6 +1,7 @@
 NAME = cub3d
+MAP = map/map.cub
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -O3 -ffast-math -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -O3 -ffast-math -g -std=c99
 LIB = libft/libft.a
 FT_PRINTF = ft_printf/ft_printf.a
 MINILIBX = minilibx/libmlx.a
@@ -40,6 +41,9 @@ $(MINILIBX):
 
 $(FT_PRINTF):
 	$(MAKE) -C ft_printf
+
+val:
+	valgrind --read-var-info=yes --leak-check=full --show-leak-kinds=all --leak-check=full ./cub3d $(MAP)
 
 clean:
 	$(MAKE) clean -C libft
