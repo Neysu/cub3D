@@ -43,7 +43,7 @@ $(FT_PRINTF):
 	$(MAKE) -C ft_printf
 
 val:
-	valgrind --read-var-info=yes --leak-check=full --show-leak-kinds=all --leak-check=full ./cub3d $(MAP)
+	valgrind --read-var-info=yes --leak-check=full --show-leak-kinds=all --leak-check=full ./cub3d $(MAP) #to select the map run make val target MAP='map/yourmap'
 
 clean:
 	$(MAKE) clean -C libft
