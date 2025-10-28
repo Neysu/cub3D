@@ -112,7 +112,8 @@ int	check_map(char **mat)
 			return (0);
 		while (mat[y][x])
 		{
-			if (mat[y][x] != '1' && mat[y][x] != '0' && mat[y][x] != 'S' && mat[y][x] != ' ')
+			if (mat[y][x] != '1' && mat[y][x] != '0'
+					&& mat[y][x] != 'S' && mat[y][x] != ' ')
 				return (0);
 			x++;
 		}
