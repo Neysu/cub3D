@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/28 09:30:01 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 12:22:30 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct s_data
 size_t	findmaplen(char *map);
 
 void	*opentext(t_data *args, char *path);
-void	loadtext(t_data *args);
+int		loadtext(t_data *args);
 
 void	ft_free(t_data *args, int destroy_display);
 int		domath(void *data);

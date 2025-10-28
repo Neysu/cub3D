@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 04:06:30 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/10/28 09:05:16 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 12:33:26 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	*opentext(t_data *args, char *path)
 	img = NULL;
 	img = mlx_xpm_file_to_image(args->mlx, path, &width, &height);
 	if (!img)
-		return (ft_free(args, 0), NULL);
+		return (NULL);
 	return (img);
 }
 
-void	loadtext(t_data *args)
+int	loadtext(t_data *args)
 {
 	t_img	**temp;
 	int		i;
@@ -35,11 +35,14 @@ void	loadtext(t_data *args)
 	while (temp[i])
 	{
 		temp[i]->img = opentext(args, temp[i]->path);
+		if (!temp[i]->img)
+			return (0);
 		temp[i]->address = (int *)
 			mlx_get_data_addr(temp[i]->img, &temp[i]->bpp,
 				&temp[i]->size_line, &temp[i]->endian);
 		i++;
 	}
+	return (1);
 }
 
 int	getcolor(int *rgb)

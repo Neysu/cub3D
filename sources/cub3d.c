@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/28 09:04:45 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 12:34:55 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,12 @@ static t_data	*loadvar(char **av)
 		return (ft_putendl_fd(ERROR, 2), ft_free(args, 0), NULL);
 	args->text->ceiling_color = getcolor(args->text->ceiling);
 	args->text->floor_color = getcolor(args->text->floor);
-	return (loadtext(args), args);
+	if (!loadtext(args))
+	{
+		mlx_destroy_window(args->mlx, args->mlx_win);
+		return (ft_free(args, 1), NULL);
+	}
+	return (args);
 }
 
 int	main(int ac, char **av)
