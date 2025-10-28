@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 04:06:30 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/07/28 08:42:38 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 09:05:16 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*opentext(t_data *args, char *path)
 	img = NULL;
 	img = mlx_xpm_file_to_image(args->mlx, path, &width, &height);
 	if (!img)
-		return (ft_free(args), NULL);
+		return (ft_free(args, 0), NULL);
 	return (img);
 }
 

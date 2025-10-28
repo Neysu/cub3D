@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:55:49 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/27 15:58:17 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 09:03:46 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	ft_free_img(t_data	*args)
 	}
 }
 
-void	ft_free(t_data *args)
+void	ft_free(t_data *args, int destroy_display)
 {
 	ft_free_map(args->map, args->maplen);
 	free(args->map);
@@ -60,7 +60,7 @@ void	ft_free(t_data *args)
 	}
 	free(args->img_data);
 	free(args->player);
-	if (args->mlx != NULL)
+	if (destroy_display && args->mlx != NULL)
 		mlx_destroy_display(args->mlx);
 	free(args);
 }

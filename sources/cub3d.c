@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:57:25 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/27 13:09:27 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 09:04:45 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ static t_data	*loadvar(char **av)
 
 	args = allocate();
 	if (!get_var(av[1], args))
-		return (ft_putendl_fd(ERROR_VAR, STDERR), ft_free(args), NULL);
+		return (ft_putendl_fd(ERROR_VAR, STDERR), ft_free(args, 0), NULL);
 	if (!get_map(av[1], args))
-		return (ft_putendl_fd(ERROR_MAP, STDERR), ft_free(args), NULL);
+		return (ft_putendl_fd(ERROR_MAP, STDERR), ft_free(args, 0), NULL);
 	args->mlx = mlx_init();
 	if (!args->mlx)
-		return (ft_putendl_fd(ERROR, 2), ft_free(args), NULL);
+		return (ft_putendl_fd(ERROR, 2), ft_free(args, 0), NULL);
 	args->mlx_win = mlx_new_window(args->mlx,
 			SCREEN_WIDTH, SCREEN_HEIGHT, "CUB3D");
 	if (!args->mlx_win)
-		return (ft_putendl_fd(ERROR, 2), ft_free(args), NULL);
+		return (ft_putendl_fd(ERROR, 2), ft_free(args, 0), NULL);
 	args->text->ceiling_color = getcolor(args->text->ceiling);
 	args->text->floor_color = getcolor(args->text->floor);
 	return (loadtext(args), args);

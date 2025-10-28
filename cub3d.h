@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/27 13:24:34 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 09:04:04 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ size_t	findmaplen(char *map);
 void	*opentext(t_data *args, char *path);
 void	loadtext(t_data *args);
 
-void	ft_free(t_data *args);
+void	ft_free(t_data *args, int destroy_display);
 int		domath(void *data);
 int		handle_input_real(int keysym, void *param);
 void	turn(t_player *player_data, double rotSpeed);

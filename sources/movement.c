@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 08:45:52 by egatien           #+#    #+#             */
-/*   Updated: 2025/10/27 13:13:26 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 09:05:07 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	close_window(void *data)
 	mlx_destroy_window(args->mlx, args->mlx_win);
 	args->mlx_win = NULL;
 	mlx_destroy_image(args->mlx, args->img_data->img);
-	ft_free(args);
+	ft_free(args, 1);
 	exit(0);
 }
 
