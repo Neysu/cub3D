@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/07/28 09:06:33 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 10:05:36 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**getmap(char *line, t_data *args, int fd)
 	}
 	free(line2);
 	map[i++] = NULL;
-	if (!floodfill(map))
+	if (!check_map(map) || !floodfill(map))
 		return (ft_free_arr(map), NULL);
 	return (map);
 }

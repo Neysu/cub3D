@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:01:37 by egatien           #+#    #+#             */
-/*   Updated: 2025/07/28 09:11:53 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 10:06:11 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_data	*get_map(char *file, t_data *args)
 	if (!args->map)
 		return (NULL);
 	locateplayer(args);
-	if (!floodfill(args->map))
+	if (!check_map(args->map) || floodfill(args->map))
 		return (NULL);
 	setplayervar(args);
 	return (args);
