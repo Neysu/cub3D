@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:55:49 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/28 09:03:46 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/28 11:50:26 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ void	ft_free(t_data *args, int destroy_display)
 	free(args->img_data);
 	free(args->player);
 	if (destroy_display && args->mlx != NULL)
+	{
 		mlx_destroy_display(args->mlx);
+		free(args->mlx);
+	}
 	free(args);
 }
