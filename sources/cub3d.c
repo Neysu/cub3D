@@ -75,6 +75,7 @@ int	main(int ac, char **av)
 			&args->img_data->size_line, &args->img_data->endian);
 	mlx_loop_hook(args->mlx, domath, args);
 	mlx_hook(args->mlx_win, KeyPress, 1, handle_input_real, args);
+	mlx_hook(args->mlx_win, KEY_LEAVE, 0, &close_window, args);
 	mlx_loop(args->mlx);
 	return (0);
 }
