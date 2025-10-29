@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:08:41 by egatien           #+#    #+#             */
-/*   Updated: 2025/10/28 11:41:14 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/29 10:47:23 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*search_start(char **mat, int *x, int *y)
 
 int	start_floodfill(int x, int y, char **mat)
 {
-	if (x < 0 || y < 0 || mat[y] == NULL || mat[y][x] == '\0')
+	if (x < 0 || y < 0 || mat[y] == NULL
+		|| mat[y][x] == '\0' || mat[y][x] == ' ')
 		return (0);
 	if (mat[y][x] != '0')
 		return (1);
