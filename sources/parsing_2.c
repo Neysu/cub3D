@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 12:21:26 by egatien           #+#    #+#             */
-/*   Updated: 2025/10/29 12:44:50 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/29 16:35:17 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	check_rgb(t_text *text)
 	i = 0;
 	while (text->ceiling[i])
 	{
-		if (text->ceiling[i] > 255)
+		if (text->ceiling[i] > 255 || text->ceiling[i] < 0)
 			return (0);
 		i++;
 	}
 	i = 0;
 	while (text->floor[i])
 	{
-		if (text->floor[i] > 255)
+		if (text->floor[i] > 255 || text->floor[i] < 0)
 			return (0);
 		i++;
 	}
@@ -44,12 +44,17 @@ int	check_map(char **map)
 	{
 		if (map[y][0] == '\0')
 			return (0);
-		while (map[y][x])
+		while (map[y][x] == ' ')
+		{
+			if (map[y][x++] == '\0')
+				return (0);
+		}
+		x = 0;
+		while (map[y][x++])
 		{
 			if (map[y][x] != '1' && map[y][x] != '0'
 					&& map[y][x] != 'S' && map[y][x] != ' ')
 				return (0);
-			x++;
 		}
 		x = 0;
 		y++;
