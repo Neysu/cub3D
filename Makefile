@@ -11,6 +11,7 @@ SRC = $(SRCDIR)/cub3d.c \
       $(SRCDIR)/free.c \
       $(SRCDIR)/parsing_0.c \
 	  $(SRCDIR)/parsing_1.c \
+	  $(SRCDIR)/parsing_2.c \
       $(SRCDIR)/utils.c \
       $(SRCDIR)/rendering_0.c \
       $(SRCDIR)/rendering_1.c \

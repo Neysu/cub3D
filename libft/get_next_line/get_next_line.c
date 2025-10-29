@@ -3,86 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elliot <elliot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 19:22:02 by egibeaux          #+#    #+#             */
-/*   Updated: 2025/03/05 19:23:43 by elliot           ###   ########.fr       */
+/*   Created: 2024/11/13 11:43:14 by egatien           #+#    #+#             */
+/*   Updated: 2025/10/29 14:28:45 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 
-void	free_null(char **ptr)
+int	readfile(char *buffer, int fd)
 {
-	if (*ptr != NULL)
-	{
-		free(*ptr);
-		ptr = NULL;
-	}
+	int	readcheck;
+
+	readcheck = (int)read(fd, buffer, BUFFER_SIZE);
+	if (readcheck > 0)
+		buffer[readcheck] = '\0';
+	return (readcheck);
 }
 
-char	*join_line(int nl_position, char **buffer)
+char	*cutstringwhen_n(char *line)
 {
-	char	*res;
-	char	*tmp;
+	int	i;
 
-	tmp = NULL;
-	if (nl_position <= 0)
+	i = 0;
+	while (line[i] != '\n' && line[i] != '\0')
+		i++;
+	if (line[i] == '\n')
+		line[i + 1] = '\0';
+	return (line);
+}
+
+void	decalebuffer(char *buffer)
+{
+	int		i;
+	char	*newline_ptr;
+
+	i = 0;
+	newline_ptr = ft_strchr(buffer, '\n');
+	if (newline_ptr)
 	{
-		if (**buffer == '\0')
+		newline_ptr++;
+		while (newline_ptr[i])
 		{
-			free(*buffer);
-			*buffer = NULL;
-			return (NULL);
+			buffer[i] = newline_ptr[i];
+			i++;
 		}
-		res = *buffer;
-		*buffer = NULL;
-		return (res);
+		buffer[i] = '\0';
 	}
-	tmp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
-	res = *buffer;
-	res[nl_position] = 0;
-	*buffer = tmp;
-	return (res);
+	else
+		buffer[0] = '\0';
 }
 
-char	*read_line(int fd, char **buffer, char *read_return)
+char	*read_until_newline(int fd, char *buffer, int *readcheck)
 {
-	ssize_t	bytes_read;
-	char	*tmp;
-	char	*nl;
+	char	*line;
+	char	*temp;
 
-	nl = ft_strchr(*buffer, '\n');
-	tmp = NULL;
-	bytes_read = 0;
-	while (nl == NULL)
+	line = ft_strdup(buffer);
+	if (!line)
+		return (NULL);
+	while (!ft_strchr(line, '\n'))
 	{
-		bytes_read = read(fd, read_return, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			return (join_line(bytes_read, buffer));
-		read_return[bytes_read] = 0;
-		tmp = ft_strjoin(*buffer, read_return);
-		free_null(buffer);
-		*buffer = tmp;
-		nl = ft_strchr(*buffer, '\n');
+		*readcheck = readfile(buffer, fd);
+		if (*readcheck <= 0)
+			break ;
+		temp = line;
+		line = ft_strjoin(line, buffer);
+		free(temp);
 	}
-	return (join_line(nl - *buffer + 1, buffer));
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[MAX_FD + 1];
-	char		*read_return;
-	char		*res;
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*line;
+	int			readcheck;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
+	if (fd == -1)
 		return (NULL);
-	read_return = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (read_return == NULL)
+	readcheck = 0;
+	line = read_until_newline(fd, buffer, &readcheck);
+	if (readcheck <= 0 && buffer[0] == '\0')
+	{
+		if (line)
+			free(line);
 		return (NULL);
-	if (!buffer[fd])
-		buffer[fd] = ft_strdup("");
-	res = read_line(fd, &buffer[fd], read_return);
-	free_null(&read_return);
-	return (res);
+	}
+	decalebuffer(buffer);
+	cutstringwhen_n(line);
+	return (line);
 }

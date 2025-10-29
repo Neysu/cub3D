@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/28 12:22:30 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/29 12:56:24 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,12 +142,13 @@ char	*loadpath(char *line);
 t_data	*get_var(char *map, t_data *args);
 t_data	*get_map(char *file, t_data *args);
 
-void	findvar(char *line, t_text *text, t_data *args);
+int		findvar(char *line, t_text *text, t_data *args);
 void	locateplayer(t_data *args);
 char	**getmap(char *line, t_data *args, int fd);
 
 int		floodfill(char **mat);
-int		check_map(char **mat);
+int		check_parsing(t_data *args);
+int		check_map(char **map);
 
 void	checkside(t_player *player_data);
 void	find_wall(t_data *args, t_player *player_data, int hit);

@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:21:35 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/27 11:55:39 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/29 14:32:30 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,11 @@ int	*loadrgb(char *line)
 	ft_free_arr(tab);
 	tab = ft_split(temp, ',');
 	free(temp);
+	if (ft_arrlen(tab) != 3)
+	{
+		ft_free_arr(tab);
+		return (NULL);
+	}
 	rgb = ft_calloc(sizeof(int), ft_arrlen(tab) + 1);
 	while (tab[i])
 	{

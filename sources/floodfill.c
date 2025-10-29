@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:08:41 by egatien           #+#    #+#             */
-/*   Updated: 2025/10/29 10:47:23 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/29 12:21:39 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,26 +100,4 @@ int	floodfill(char **mat)
 	return (result);
 }
 
-int	check_map(char **mat)
-{
-	int	x;
-	int	y;
 
-	x = 0;
-	y = 0;
-	while (mat[y])
-	{
-		if (mat[y][0] == '\0')
-			return (0);
-		while (mat[y][x])
-		{
-			if (mat[y][x] != '1' && mat[y][x] != '0'
-					&& mat[y][x] != 'S' && mat[y][x] != ' ')
-				return (0);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (1);
-}

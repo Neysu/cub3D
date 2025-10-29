@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/28 10:05:36 by egatien          ###   ########.fr       */
+/*   Updated: 2025/10/29 14:34:13 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**getmap(char *line, t_data *args, int fd)
 	return (map);
 }
 
-void	findvar(char *line, t_text *text, t_data *args)
+int	findvar(char *line, t_text *text, t_data *args)
 {
 	if (ft_strnstr(line, "NO", ft_strlen(line)))
 		args->wall_text[0]->path = loadpath(line);
@@ -62,9 +62,18 @@ void	findvar(char *line, t_text *text, t_data *args)
 	else if (ft_strnstr(line, "EA", ft_strlen(line)))
 		args->wall_text[3]->path = loadpath(line);
 	else if (ft_strchr(line, 'C'))
+	{
 		text->ceiling = loadrgb(line);
+		if (!text->ceiling)
+			return (0);
+	}
 	else if (ft_strchr(line, 'F'))
+	{
 		text->floor = loadrgb(line);
+		if (!text->floor)
+			return (0);
+	}
+	return (1);
 }
 
 void	locateplayer(t_data *args)
