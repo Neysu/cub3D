@@ -50,10 +50,10 @@ int	check_map(char **map)
 				return (0);
 		}
 		x = 0;
-		while (map[y][x++])
+		while (map[y][++x])
 		{
 			if (map[y][x] != '1' && map[y][x] != '0'
-					&& map[y][x] != 'S' && map[y][x] != ' ')
+					&& !isplayer(map[y][x]) && map[y][x] != ' ')
 				return (0);
 		}
 		x = 0;
