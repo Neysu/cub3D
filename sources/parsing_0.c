@@ -58,7 +58,6 @@ static	int	norm(t_data *args)
 	i = 0;
 	while (args->wall_text[i] && i < 4) 
 	{
-		printf("%d\n", i);
 		if (!args->wall_text[i]->path)
 			return (0);
 		i++;

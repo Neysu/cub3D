@@ -70,15 +70,10 @@ char	*loadpath(char *line)
 {
 	char	**pathtotext;
 	char	*path;
-	int		i = 0;
 	
 	pathtotext = ft_split(line, ' ');
 	if (ft_arrlen(pathtotext) != 2 || !pathtotext)
-		return (NULL);
-	while (pathtotext[i]) {
-		printf("%s\n", pathtotext[i]);
-		i++;
-	}
+		return (ft_free_arr(pathtotext), NULL);
 	path = ft_strdup(pathtotext[1]);
 	ft_free_arr(pathtotext);
 	return (path);
