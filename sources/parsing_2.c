@@ -6,11 +6,27 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 12:21:26 by egatien           #+#    #+#             */
-/*   Updated: 2025/11/03 12:42:35 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 14:05:14 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	search_longstr(char **mat)
+{
+	int	count;
+	int	y;
+
+	y = 0;
+	count = 0;
+	while (mat[y])
+	{
+		if (ft_strlen(mat[y]) > (size_t)count)
+			count = ft_strlen(mat[y]);
+		y++;
+	}
+	return (count);
+}
 
 int	check_rgb(t_text *text)
 {

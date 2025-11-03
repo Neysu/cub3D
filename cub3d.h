@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 19:54:12 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/29 12:56:24 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 14:05:40 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void	locateplayer(t_data *args);
 char	**getmap(char *line, t_data *args, int fd);
 
 int		floodfill(char **mat);
+int	search_longstr(char **mat);
 int		check_parsing(t_data *args);
 int		check_map(char **map);
 

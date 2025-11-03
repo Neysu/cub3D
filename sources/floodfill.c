@@ -6,11 +6,31 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:08:41 by egatien           #+#    #+#             */
-/*   Updated: 2025/11/03 11:18:07 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 14:05:19 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+char	*new_map_str(char *str, int biggest_str)
+{
+	int		strlen;
+	char	*result;
+	int		i;
+
+	i = 0;
+	strlen = biggest_str - ft_strlen(str);
+	result = malloc(sizeof(char) * (strlen + 1));
+	if (!result)
+		return (NULL);
+	while (i < strlen)
+	{
+		result[i] = ' ';
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}
 
 char	*search_start(char **mat, int *x, int *y)
 {
@@ -60,7 +80,10 @@ char	**create_mat(char **mat)
 	char	**result;
 	int		i;
 	int		count;
+	char	*str;
+	int 	biggest_strlen;
 
+	biggest_strlen = search_longstr(mat);
 	count = 0;
 	i = 0;
 	while (mat[count] != NULL)
@@ -70,7 +93,11 @@ char	**create_mat(char **mat)
 		return (NULL);
 	while (mat[i] != NULL)
 	{
-		result[i] = ft_strdup(mat[i]);
+		str = new_map_str(mat[i], biggest_strlen);
+		if (!str)
+			return (NULL);
+		result[i] = ft_strjoin(mat[i], str);
+		free(str);
 		i++;
 	}
 	result[i] = NULL;
