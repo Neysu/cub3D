@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:21:35 by elliot            #+#    #+#             */
-/*   Updated: 2025/10/29 14:32:30 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 15:37:35 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,15 @@ char	*loadpath(char *line)
 {
 	char	**pathtotext;
 	char	*path;
-
+	int		i = 0;
+	
 	pathtotext = ft_split(line, ' ');
-	if (ft_arrlen(pathtotext) != 2)
+	if (ft_arrlen(pathtotext) != 2 || !pathtotext)
 		return (NULL);
+	while (pathtotext[i]) {
+		printf("%s\n", pathtotext[i]);
+		i++;
+	}
 	path = ft_strdup(pathtotext[1]);
 	ft_free_arr(pathtotext);
 	return (path);
