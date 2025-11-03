@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 03:02:17 by elliot            #+#    #+#             */
-/*   Updated: 2025/11/03 15:52:16 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 17:32:55 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ static	int	norm(t_data *args)
 
 int	findvar(char *line, t_text *text, t_data *args)
 {
-	if (ft_strnstr(line, "NO", ft_strlen(line)))
+	if (ft_strnstr(line, "NO", ft_strlen(line)) && !args->wall_text[0]->path)
 		return (args->wall_text[0]->path = loadpath(line), 1);
-	else if (ft_strnstr(line, "SO", ft_strlen(line)))
+	else if (ft_strnstr(line, "SO", ft_strlen(line)) && !args->wall_text[1]->path)
 		return (args->wall_text[1]->path = loadpath(line), 1);
-	else if (ft_strnstr(line, "WE", ft_strlen(line)))
+	else if (ft_strnstr(line, "WE", ft_strlen(line)) && !args->wall_text[2]->path)
 		return (args->wall_text[2]->path = loadpath(line), 1);
-	else if (ft_strnstr(line, "EA", ft_strlen(line)))
+	else if (ft_strnstr(line, "EA", ft_strlen(line)) && !args->wall_text[3]->path)
 		return (args->wall_text[3]->path = loadpath(line), 1);
 	else if (ft_strchr(line, 'C') && !text->ceiling)
 	{
