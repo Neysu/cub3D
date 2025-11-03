@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:08:41 by egatien           #+#    #+#             */
-/*   Updated: 2025/10/29 12:21:39 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:18:07 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,3 @@ int	floodfill(char **mat)
 	ft_free_arr(newmat);
 	return (result);
 }
-
-
