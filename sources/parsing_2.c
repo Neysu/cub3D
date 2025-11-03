@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 12:21:26 by egatien           #+#    #+#             */
-/*   Updated: 2025/11/03 12:38:35 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 12:42:35 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	check_map(char **map)
 		x = 0;
 		while (map[y][++x])
 		{
-			if (map[y][x] != '1' && map[y][x] != '0'
-					&& !isplayer(map[y][x]) && map[y][x] != ' ')
+			if (!charmap(map[y][x]))
 				return (0);
 		}
 		x = 0;
