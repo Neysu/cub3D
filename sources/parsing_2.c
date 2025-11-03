@@ -6,7 +6,7 @@
 /*   By: egatien <egatien@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 12:21:26 by egatien           #+#    #+#             */
-/*   Updated: 2025/10/29 16:35:17 by egatien          ###   ########.fr       */
+/*   Updated: 2025/11/03 12:38:35 by egatien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,34 @@ int	check_map(char **map)
 	return (1);
 }
 
+int	check_double_player(char **map)
+{
+	int	count;
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	count = 0;
+	while (map[y])
+	{
+		while (map[y][++x])
+		{
+			if (isplayer(map[y][x]))
+				count++;
+		}
+		x = 0;
+		y++;
+	}
+	if (count != 1)
+		return (0);
+	return (1);
+}
+
 int	check_parsing(t_data *args)
 {
+	if (!check_double_player(args->map))
+		return (0);
 	if (!check_map(args->map))
 		return (0);
 	if (!check_rgb(args->text))
